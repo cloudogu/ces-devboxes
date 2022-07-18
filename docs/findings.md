@@ -1,13 +1,3 @@
-# Anforderungsliste 
-
-Talks über Linux CLI Tools: 
-
-### IDE 
-
-- IntelliJ 
-- VSCode (für kleine Dateien) 
-   - Plugins sind dem Entwickler überlassen 
-
 ### Linux Utility Software 
 
 * restic

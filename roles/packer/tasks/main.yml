@@ -1,8 +1,0 @@
-- name: Install packer (Linux)
-  include: linux.yml
-  when: ansible_system == "Linux"
-
-- name: Install packer (MacOSX)
-  homebrew:
-    name: packer
-  when: ansible_distribution == "MacOSX"

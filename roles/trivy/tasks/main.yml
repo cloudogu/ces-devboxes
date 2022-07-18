@@ -1,3 +1,0 @@
-- name: Install trivy (Ubuntu)
-  include: ubuntu.yml
-  when: ansible_distribution == "Ubuntu"

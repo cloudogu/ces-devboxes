@@ -1,0 +1,12 @@
+---
+
+# Required values
+mail: xxx.xxx@cloudogu.com
+displayName: MY NAME
+gpgKey: "my-key"
+
+aptcachetime: 3600
+chromium:
+  set_default: true
+  policy: false
+  extensions: false

@@ -1,7 +1,0 @@
-- name: Install kap
-  homebrew_cask:
-    name: kap
-
-- name: Install gifsicle
-  homebrew:
-    name: gifsicle

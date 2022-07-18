@@ -1,8 +1,0 @@
-- name: Install terraform (Linux)
-  include: linux.yml
-  when: ansible_system == "Linux"
-
-- name: Install terraform (MacOSX)
-  homebrew:
-    name: terraform
-  when: ansible_distribution == "MacOSX"

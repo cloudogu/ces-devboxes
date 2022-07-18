@@ -1,0 +1,13 @@
+---
+
+- name: Uninstall old snap firefox
+  snap:
+    name: firefox
+    state: absent
+
+- name: Install Firefox
+  apt:
+    name: firefox
+    state: latest
+    update_cache: yes
+    cache_valid_time: "{{ aptcachetime }}"
