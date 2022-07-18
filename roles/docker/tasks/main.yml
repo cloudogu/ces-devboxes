@@ -1,8 +1,3 @@
 - name: Install docker (Linux)
   include: linux.yml
   when: ansible_system == "Linux"
-
-- name: Install docker (MacOSX)
-  homebrew_cask:
-    name: docker-edge
-  when: ansible_distribution == "MacOSX"

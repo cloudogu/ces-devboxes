@@ -1,9 +1,71 @@
-- name: Install Intellij Idea Ultimate on Linux
-  include: linux.yml
-  become: yes
-  when: ansible_system == "Linux"
+- name: Get installed intelliJ version
+  shell: cat /opt/currentIntelliJ/product-info.json | jq -r ".version"
+  register: intellijVersion
 
-- name: Install Intellij Idea Ultimate (MacOSX)
-  homebrew_cask:
-    name: intellij-idea
-  when: ansible_distribution == "MacOSX"
+- name: Inform when configured version is different
+  debug:
+    msg:
+      - "Found different Version! Installing configured version..."
+  when: intellijVersion.stdout != intellij_version
+
+- name: Remove old version and link
+  become: true
+  shell: rm -rf /opt/ideaIU* && rm -rf /opt/currentIntelliJ
+  when: intellijVersion.stdout != intellij_version
+
+- name: Download configured IntelliJ Version
+  become: true
+  get_url:
+    url: https://download.jetbrains.com/idea/ideaIU-{{ intellij_version }}.tar.gz
+    dest: /opt/ideaIU-{{ intellij_version }}.tar.gz
+    owner: root
+    group: root
+    mode: 755
+  register: intellij_download
+  when: intellijVersion.stdout != intellij_version
+
+- name: Unzip IntelliJ Version
+  become: true
+  shell: sudo mkdir /opt/ideaIU-{{ intellij_version }} && sudo tar -xzf /opt/ideaIU-{{ intellij_version }}.tar.gz -C /opt --strip-components=1 --directory=ideaIU-{{ intellij_version }}
+  when: intellijVersion.stdout != intellij_version
+
+- name: Create symbolic link
+  become: true
+  file:
+    src: /opt/ideaIU-{{ intellij_version }}
+    dest: /opt/currentIntelliJ
+    state: link
+  when: intellijVersion.stdout != intellij_version
+
+- name: Increase file descriptor limit
+  copy:
+    src: "{{ playbook_dir }}/config/intellij/90-idea.conf"
+    dest: /etc/sysctl.d/90-idea.conf
+    owner: root
+    group: root
+    mode: 0644
+  register: inotifylimit
+
+- name: apply new file descriptor limit
+  command: sysctl -p --system
+  when: inotifylimit.changed
+
+- name: Check GPG agent in idea.sh
+  become: true
+  shell: cat /opt/currentIntelliJ/bin/idea.sh | grep 'SSH_AUTH_SOCK' || true
+  register: ideagpgcheck
+
+- name: Add gpg as ssh agent to idea
+  become: true
+  shell: sed -i 's/"$JAVA_BIN" \\/SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) "$JAVA_BIN" \\/g' /opt/currentIntelliJ/bin/idea.sh
+  when: ideagpgcheck.stdout | length <= 0
+
+- name: Create dekstop entry
+  become: true
+  copy:
+    src: "{{ playbook_dir }}/config/intellij/jetbrains-idea.desktop"
+    dest: /usr/share/applications/jetbrains-idea.desktop
+    owner: root
+    group: root
+    mode: 0644
+  register: inotifylimit

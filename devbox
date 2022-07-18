@@ -2,7 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-if ! which ansible-playbook > /dev/null 2>&1; then
+if ! which ansible-playbook >/dev/null 2>&1; then
   echo "Could not find ansible. Please install ansible first"
   exit 1
 fi
@@ -19,19 +19,44 @@ if [ ! -f "${BASEDIR}/vars.yml" ]; then
   echo -n "gpg key: "
   read GPG_KEY
 
-  cat > "${BASEDIR}/vars.yml" <<EOF
+  cat >"${BASEDIR}/vars.yml" <<EOF
 mail: ${MAIL}
 displayName: ${DISPLAY_NAME}
 gpgKey: "${GPG_KEY}"
 EOF
 fi
 
-if which python3 > /dev/null 2>&1; then
+if which python3 >/dev/null 2>&1; then
   PYTHON=$(which python3)
 else
   PYTHON=$(which python)
 fi
 
+echo "select roles ..."
+echo "===================="
+
+roles="$(cat playbook.yml | grep "role:" | sed "s|.*role:||g")"
+
+# source checkbox.sh --options="${roles}" --multiple --message="Select all roles to be installed with SPACE. Continue with ENTER."
+
+selectedRolesAsTags="idea"
+# # shellcheck disable=SC2154
+# if [[ ${#checkbox_output[@]} -gt 0 ]]; then
+#   for option in "${checkbox_output[@]}"; do
+#     # shellcheck disable=SC2001
+#     clearOption="$(echo "${option}" | sed "s|\s*||g" )"
+#     if [[ -n ${selectedRolesAsTags} ]]; then
+#       selectedRolesAsTags="${selectedRolesAsTags},${clearOption}"
+#     else
+#       selectedRolesAsTags="${clearOption}"
+#     fi
+#   done
+# else
+#   printf "None selected\n"
+#   exit 0
+# fi
+
+echo ""
 echo "starting ansible ..."
 echo "===================="
 
@@ -41,4 +66,5 @@ ansible-playbook \
   "${BASEDIR}/playbook.yml" \
   --connection local \
   -i localhost, \
-  -K $@
+  -K $@ \
+  --tags "${selectedRolesAsTags}"

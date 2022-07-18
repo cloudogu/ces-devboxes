@@ -1,8 +1,7 @@
-# Devboxes
+# CES-Devboxes
 
-This repository contains ansible roles to setup my development machines and helps to keep them in sync.
-The ansible playbook will install software which i need for my day to day work as developer.
-It will also install my set of configuration for those tools.
+This repository contains ansible roles to setup a new development machine for the Cloudogu EcoSystem developers.
+
 The playbook will install and configure the following tools:
 
 * zsh (configured with [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh))
@@ -24,20 +23,13 @@ The playbook will install and configure the following tools:
 * Intellij
 * and many more
 
-## Supported Operating Systems
+## Tested Operating Systems
 
-* Ubuntu (tested on 19.04)
-* Manjaro Linux
-* Mac OS X
+* Ubuntu (tested on 22.04)
 
 ## Prerequisites
 
 * Ansible >= 2.6
-
-### MacOSX
-
-* Install [homebrew](https://brew.sh/)
-* Install ansible `brew install ansible`
 
 ### Ubuntu
 
@@ -48,10 +40,6 @@ sudo add-apt-repository ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get install ansible
 ```
-
-### Manjaro
-
-Install ansible `sudo pacman -S ansible`
 
 ## Getting started
 
@@ -65,8 +53,3 @@ Its also possible to only apply certain tags, e.g.
 `devbox --tags zsh`
 
 See [playbook](playbook.yml) for existing tags.
-
-## Todo
-
-- [ ] Automatically Git Updates
-- [ ] Role chooser
