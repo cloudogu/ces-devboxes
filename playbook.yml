@@ -2,6 +2,6 @@
   roles:
 #    - git
 #    - idea
-#    - vscode
-    - chromium
+    - vscode
+#    - chromium
 #    - firefox

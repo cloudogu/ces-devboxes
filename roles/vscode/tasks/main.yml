@@ -27,3 +27,11 @@
     - jebbs.plantuml
   register: vscode_result
   changed_when: "'already installed' not in vscode_result.stdout"
+
+- name: copy vscode settings
+  become: true
+  become_user: "{{ user }}"
+  copy:
+    src: settings.json
+    dest: "{{ ansible_env.HOME }}/.config/Code/User/settings.json"
+  when: chrome.bookmarks
