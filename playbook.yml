@@ -3,6 +3,9 @@
     #    - git
     #    - idea
     #    - vscode
-    #    - chromium
+    #    - chrome
     #    - firefox
-    - restic
+    #    - restic
+    # - mokutils
+#    - virtualbox
+    - vmwareplayer

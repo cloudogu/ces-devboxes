@@ -1,5 +1,5 @@
 - name: Install restic
-  become: yes
+  become: true
   apt:
     name: 
     - restic

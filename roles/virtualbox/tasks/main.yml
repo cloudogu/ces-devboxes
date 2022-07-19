@@ -1,0 +1,10 @@
+- name: Install virtualbox package
+  become: yes
+  apt:
+    name: virtualbox-6.1
+
+- name: Create mok key to sign kernel modules
+  become: yes
+  apt:
+    name: virtualbox-6.1
+

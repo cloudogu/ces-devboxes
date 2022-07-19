@@ -1,6 +1,5 @@
 ### Linux Utility Software 
 
-* restic
 * thefuck https://github.com/nvbn/thefuck
 * btrfs-progs (für cesapp)
 
@@ -22,18 +21,6 @@
 
 ### Browser
 
-* Tampermonkey vorinstalliert
-* Chromium
-* Firefox
-* CES-Developer Lesezeichen erstellen/importieren
-   * Workmeet 
-   * Cloudogu Infrastruktur
-      * GCE Dinge
-      * StageX
-      * Prod
-      * Bucket für docs
-      * Docs
-      * Blueprint PR
    * Cheatsheets
       * Zeiterfassung: https://www.zeiterfassungonline.com/stunden-rechner.html 
       * Docker: https://opensourcelibs.com/lib/docker-notes

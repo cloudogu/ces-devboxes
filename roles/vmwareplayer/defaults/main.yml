@@ -1,0 +1,3 @@
+vmware:
+  modules:
+    version: w16.2.3-k5.18

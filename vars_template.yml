@@ -3,8 +3,17 @@
 # Required values
 mail: xxx.xxx@cloudogu.com
 displayName: MY NAME
-gpgKey: "my-key"
+gpgKey: my-key
 user: myubuntususername
+
+# (REQUIRED) Set mok password. Needs to be used after rebooting the machine.
+mokutils:
+  password: password
+
+# VMWare settings
+vmware:
+  modules:
+    version: w16.2.3-k5.18
 
 # General settings
 aptcachetime: 3600

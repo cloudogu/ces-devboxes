@@ -1,0 +1,14 @@
+- name: Get vmware workstation version
+  become: true
+  shell: vmware-installer -l | grep vmware-player | sed "s|vmware-player\s*||g" | sed "s|\s*||g"
+  register: vmware_installedVersion
+
+- name: Check VMWare version
+  debug:
+    msg: "Installed Version: {{ vmware_installedVersion.stdout }}"
+
+- name: Uninstall previous vmware player
+  become: true
+  shell: echo "yes" | vmware-installer --uninstall-product vmware-player
+  when:
+    - vmware_installedVersion.stdout | length > 0

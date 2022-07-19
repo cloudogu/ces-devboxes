@@ -1,0 +1,50 @@
+#
+# Handle the installation and build process for the vmware kernel modules
+#
+- name: Checkout kernel files
+  become: true
+  ansible.builtin.git:
+    repo: "https://github.com/mkubecek/vmware-host-modules.git"
+    dest: /vmware-player/vmware-host-modules
+    version: "{{ vmware.modules.version }}"
+
+- name: Run make
+  become: true
+  make:
+    chdir: /vmware-player/vmware-host-modules
+    target:
+
+- name: Run make install
+  become: true
+  make:
+    chdir: /vmware-player/vmware-host-modules
+    target: install
+
+- name: Remove old shared library
+  become: true
+  file:
+    path: /usr/lib/vmware/lib/libz.so.1/libz.so.1
+    state: absent
+
+- name: Create new link
+  become: true
+  file:
+    src: /lib/x86_64-linux-gnu/libz.so.1
+    dest: /usr/lib/vmware/lib/libz.so.1/libz.so.1
+    owner: root
+    group: root
+    state: link
+
+- name: Remove downloaded kernel files
+  become: true
+  file:
+    path: /vmware-player/vmware-host-modules
+    state: absent
+
+- name: Sign vmmon module
+  become: true
+  shell: /usr/src/linux-headers-`uname -r`/scripts/sign-file sha256 /mok/CES_MOCK.priv /mok/CES_MOCK.der $(modinfo -n vmmon)
+
+- name: Sign vmnet module
+  become: true
+  shell: /usr/src/linux-headers-`uname -r`/scripts/sign-file sha256 /mok/CES_MOCK.priv /mok/CES_MOCK.der $(modinfo -n vmnet)
