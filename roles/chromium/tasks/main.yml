@@ -1,43 +1,72 @@
 ---
 
-- name: Install Chromium
+- name: Install chrome requisites
+  become: true
   apt:
-    name: chromium-browser
+    name:
+      - software-properties-common
+      - apt-transport-https
+      - wget
+      - ca-certificates
+      - gnupg2
+      - ubuntu-keyring
     state: latest
     update_cache: yes
     cache_valid_time: "{{ aptcachetime }}"
 
-- name: Set Chromium as default browser
-  command: update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/chromium-browser 250
-  when: chromium.set_default == true
+- name: Add google chrome apt key
+  become: true
+  apt_key:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    state: present
 
-# See https://www.chromium.org/administrators/policy-list-3
-- name: Create Chromium policies directory for all users
-  file:
-    path: /etc/chromium/policies/managed
-    state: directory
-  when: chromium.policy
+- name: Add google chrome apt repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+    state: present
+    filename: google-chrome
 
-- name: Create Chromium JSON policy file to force settings for all users
+- name: Install chrome
+  become: true
+  apt:
+    name:
+      - google-chrome-stable
+    state: latest
+    update_cache: yes
+    cache_valid_time: "{{ aptcachetime }}"
+
+###
+### Manage Chrome Booksmarks
+###
+- name: Copy bookmarks
+  become: true
+  become_user: "{{ user }}"
   copy:
-    src: policy.json
-    dest: "/etc/chromium/policies/managed/benoth-policy.json"
-  when: chromium.policy
+    src: Bookmarks
+    dest: "{{ ansible_env.HOME }}/.config/google-chrome/Default/Bookmarks"
+  when: chrome.bookmarks
 
-- name: Create Chromium extensions directory for all users
+###
+### Manage Chrome extensions
+###
+
+- name: Create Chrome extensions directory for all users
+  become: true
   file:
-    path: /usr/share/chromium-browser/extensions
+    path: /usr/share/google-chrome/extensions
     state: directory
-  when: chromium.policy
+  when: chrome.extensions
 
-# See https://developer.chrome.com/extensions/external_extensions#preferences
-- name: Create Chromium JSON file to install extensions for all users
+# See https://developer.chrome.com/docs/extensions/mv3/external_extensions/#preference-linux
+- name: Create Chrome JSON file to install extensions for all users
+  become: true
   template:
     src: chrome-extensions.json.j2
-    dest: "/usr/share/chromium-browser/extensions/{{ item }}.json"
+    dest: "/usr/share/google-chrome/extensions/{{ item }}.json"
   with_items:
     - cjpalhdlnbpafiamejdnhcphjbkeiagm # ublock
     - bcjindcccaagfpapjjmafapmmgkkhgoa # JSON Formatter
     - mdjildafknihdffpkfmmpnpoiajfjnjd # Consent-O-Matic
     - dhdgffkkebhmkfjojejmpbldmpobfkfo # Tampermonkey
-  when: chromium.extensions
+  when: chrome.extensions

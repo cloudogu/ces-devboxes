@@ -40,10 +40,11 @@ echo "                       'V/(/////////////////////////////V'      "
 
 ensureAnsible
 
+BASEDIR=$(dirname "$0")
 #####################################
 # Display real installation process #
 echo ""
-echo "Customize the playbook ansible-desktop.yml to suit your needs, then run ansible with :"
-echo " ansible-playbook playbook.yml --ask-become-pass --extra-vars=vars.yml -e ansible_python_interpreter=${PYTHON} --connection local -i localhost"
+echo "Customize the playbook: playbook.yml to suit your needs, then run ansible with :"
+echo " ansible-playbook ${BASEDIR}/playbook.yml -e @${BASEDIR}/vars.yml -e ansible_python_interpreter=${PYTHON} -c local -i localhost -K"
 echo ""
 
