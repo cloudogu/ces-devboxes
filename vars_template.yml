@@ -4,9 +4,12 @@
 mail: xxx.xxx@cloudogu.com
 displayName: MY NAME
 gpgKey: "my-key"
+user: myubuntususername
 
+# General settings
 aptcachetime: 3600
-chromium:
-  set_default: true
-  policy: false
-  extensions: false
+
+# Chrome settings
+chrome:
+  extensions: true
+  bookmarks: true
