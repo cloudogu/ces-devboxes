@@ -1,0 +1,6 @@
+- name: Install restic
+  become: yes
+  apt:
+    name: 
+    - restic
+    - nfs-common
