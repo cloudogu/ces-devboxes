@@ -1,0 +1,22 @@
+- name: Install gcloud
+  include: gcloud_ubuntu.yml
+
+- name: Install kubectl
+  become: true
+  shell: gcloud components install kubectl --quiet
+  args:
+    creates: /usr/local/google-cloud-sdk/bin/kubectl
+  when: ansible_distribution != "Ubuntu"
+
+- name: Install kubectl 
+  become: true
+  snap:
+    classic: yes
+    name: kubectl
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install kubectx
+  include: kubectx.yml
+
+- name: Install k9s
+  include: k9s.yml

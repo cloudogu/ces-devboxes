@@ -1,0 +1,2 @@
+- name: Install k8s tools
+  include: linux.yml

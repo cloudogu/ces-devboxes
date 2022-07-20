@@ -13,6 +13,7 @@
     # - sdks
     # - hashicorp
     # - docker
+    - k8s
     # - mok-key-create
     # - virtualbox
     # - vmwareplayer
