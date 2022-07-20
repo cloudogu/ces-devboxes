@@ -1,0 +1,15 @@
+- name: Capture yq version
+  shell: yq --version | awk '{print $4}'
+  register: yq
+  changed_when: False
+
+- name: Install yq
+  become: true
+  get_url:
+    url: https://github.com/mikefarah/yq/releases/download/v{{ yq_version }}/yq_linux_amd64
+    dest: /usr/local/bin/yq
+    owner: root
+    group: root
+    mode: 755
+    force: yes
+  when: yq.stdout != yq_version

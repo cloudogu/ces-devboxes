@@ -1,21 +1,21 @@
 - hosts: localhost
   roles:
-    #    - git
-    # - gpg
-    # - zsh
-    #    - trivy
-    # - recording
-    #    - idea
-    #    - vscode
-    # - chrome
-    #    - firefox
-    #    - restic
-    # - sdks
-    # - hashicorp
-    # - docker
+    - git
+    - gpg
+    - zsh
+    - trivy
+    - recording
+    - idea
+    - vscode
+    - chrome
+    - firefox
+    - restic
+    - sdks
+    - hashicorp
+    - docker
     - k8s
-    # - mok-key-create
-    # - virtualbox
-    # - vmwareplayer
-    # - mok-key-import
-
+    - cli-tools
+    - mok-key-create
+    - virtualbox
+    - vmwareplayer
+    - mok-key-import

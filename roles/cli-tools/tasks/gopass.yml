@@ -1,0 +1,6 @@
+- name: Install gopass (Ubuntu)
+  become: true
+  apt:
+    name: 
+    - gopass
+    - xclip

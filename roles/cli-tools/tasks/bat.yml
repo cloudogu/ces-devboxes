@@ -1,0 +1,20 @@
+- name: Capture bat version
+  shell: bat --version | awk '{print $2}'
+  register: bat
+  changed_when: False
+
+- name: Install bat
+  become: true
+  apt:
+    deb: https://github.com/sharkdp/bat/releases/download/v{{ bat_version }}/bat_{{ bat_version }}_amd64.deb
+  when: bat.stdout != bat_version
+
+- name: Create bat configuration directory
+  file:
+    path: ~/.config/bat
+    state: directory
+
+- name: Link bat configuration
+  copy:
+    src: "{{ playbook_dir }}/config/bat-config"
+    dest: ~/.config/bat/config

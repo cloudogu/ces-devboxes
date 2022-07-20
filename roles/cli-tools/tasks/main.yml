@@ -1,0 +1,37 @@
+- name: Install cli tools from repository (Ubuntu)
+  become: true
+  apt:
+    name:
+      - htop
+      - iftop
+      - make
+      - openssl
+      - wget
+      - curl
+      - subversion
+      - jq
+      - ncdu
+      - btrfs-progs
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install bat
+  include: bat.yml
+
+- name: Install gotop
+  include: gotop.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install ctop
+  include: ctop.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install gopass
+  include: gopass.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install yq
+  include: yq.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install aliases
+  include: aliases.yml
