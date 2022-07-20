@@ -1,8 +1,8 @@
 - name: Install VirtualBox
-  include: install.yml
+  include_tasks: install.yml
 
 - name: Install VirtualBox extensions
-  include: installExtensions.yml
+  include_tasks: installExtensions.yml
 
 - name: Build and sign VirtualBox modules
-  include: modules.yml
+  include_tasks: modules.yml

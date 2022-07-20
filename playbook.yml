@@ -1,13 +1,22 @@
 - hosts: localhost
   roles:
     #    - git
+    # - recording
+    # IDEs
     #    - idea
     #    - vscode
+    # Browser 
     #    - chrome
     #    - firefox
     #    - restic
+    # SDKs
+    # - sdks
+    
+    # VM things
+    # - hashicorp
+    # - docker
     # - mok-key-create
     # - virtualbox
     # - vmwareplayer
     # - mok-key-import
-    - hashicorp
+

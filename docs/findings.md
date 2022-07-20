@@ -12,10 +12,6 @@
 * Ubuntu Monitoring Leiste oben
 * JExplorer (für ldap)
 
-* gutils
-~~* zoiper~~
-
-* gif-Erstellung: peek
 * PDF Viewer
 * (LibreOffice)
 
@@ -40,27 +36,3 @@ Plugins:
    - gitflow
 - savepaste (https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/safe-paste)
 - fzf
-
-### SDKs
-
-* (python 2)
-* Ruby (rvm) / rake
-* NVM / yarn
-* Go (gvm)
-* Java (jabba/sdkman)
-
-### Snippet Manager
-
-- Jeder für sich
-
-### Alias
-
-- ll
-- vagrant aliases
-alias für sdk versionen java8 java11 node11 node14 go18 go14
-alias goodbye="shutdown -h now"
-alias gbforce="systemctl poweroff -i"
-alias rbforce="systemctl reboot -i"
-alias java8="sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java"
-alias java11="sudo update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java"
-alias untar="sudo tar -xvzf"

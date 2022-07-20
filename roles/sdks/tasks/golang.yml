@@ -1,0 +1,62 @@
+- name: Install required packages for gvm
+  become: true
+  apt:
+    name: 
+    - bison
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ aptcachetime }}"
+
+- name: Check gvm installation
+  shell: source "{{ ansible_env.HOME }}/.gvm/scripts/gvm" && which gvm
+  register: gvm_installation
+  failed_when: false
+  args:
+    executable: /usr/bin/zsh
+
+- name: Install gvm
+  shell: curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer | zsh
+  args:
+    executable: /usr/bin/zsh
+  when: gvm_installation.rc > 0
+
+- name: Check installation of go 1.14 
+  become: true
+  become_user: "{{ user }}"
+  shell: source "{{ ansible_env.HOME }}/.gvm/scripts/gvm" && gvm list | grep go1.14.15
+  register: go_14
+  failed_when: false
+  args:
+    executable: /usr/bin/zsh
+
+- name: Install Go 1.14
+  become: true
+  become_user: "{{ user }}"
+  shell: source "{{ ansible_env.HOME }}/.gvm/scripts/gvm" && gvm install go1.14.15
+  args:
+    executable: /usr/bin/zsh
+  when: go_14.rc > 0
+
+- name: Check installation of go 1.18
+  become: true
+  become_user: "{{ user }}"
+  shell: source "{{ ansible_env.HOME }}/.gvm/scripts/gvm" && gvm list | grep go1.18.4
+  register: go_18
+  failed_when: false
+  args:
+    executable: /usr/bin/zsh
+
+- name: Install Go 1.18
+  become: true
+  become_user: "{{ user }}"
+  shell: source "{{ ansible_env.HOME }}/.gvm/scripts/gvm" && gvm install go1.18.4
+  args:
+    executable: /usr/bin/zsh
+  when: go_18.rc > 0
+
+- name: Set Go 1.18 as default
+  become: true
+  become_user: "{{ user }}"
+  shell: source "{{ ansible_env.HOME }}/.gvm/scripts/gvm" && gvm use go1.18.4 --default 
+  args:
+    executable: /usr/bin/zsh
