@@ -6,6 +6,7 @@
     #    - chrome
     #    - firefox
     #    - restic
-    # - mokutils
-#    - virtualbox
-    - vmwareplayer
+    - mok-key-create
+    - virtualbox
+    # - vmwareplayer
+    - mok-key-import

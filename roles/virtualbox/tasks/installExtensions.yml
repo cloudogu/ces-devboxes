@@ -1,0 +1,28 @@
+- name: Check VirtualBox version
+  become: true
+  shell: vboxmanage --version | sed "s|\([0-9]*\.[0-9]]*\.[0-9]*\).*|\1|g"
+  register: virtualbox_version
+  
+- name: Uninstall old VirtualBox extension version
+  become: true
+  shell: VBoxManage extpack uninstall "Oracle VM VirtualBox Extension Pack" || true
+
+- name: Download VirtualBox extensions package
+  become: true
+  get_url:
+    url: "https://download.virtualbox.org/virtualbox/{{ virtualbox_version.stdout }}/Oracle_VM_VirtualBox_Extension_Pack-{{ virtualbox_version.stdout }}.vbox-extpack"
+    dest: ./Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack
+
+- name: Install VirtualBox extensions package
+  become: true
+  expect:
+    command: VBoxManage extpack install ./Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack
+    responses:
+      (?i)conditions: "y"
+
+- name: Remove downloaded VirtualBox extensions package file
+  become: true
+  file:
+    path: ./Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack
+    state: absent
+    

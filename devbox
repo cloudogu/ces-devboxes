@@ -44,7 +44,7 @@ BASEDIR=$(dirname "$0")
 #####################################
 # Display real installation process #
 echo ""
-echo "Customize the playbook: playbook.yml to suit your needs, then run ansible with :"
-echo " ansible-playbook ${BASEDIR}/playbook.yml -e @${BASEDIR}/vars.yml -e ansible_python_interpreter=${PYTHON} -c local -i localhost -K"
+echo "Customize the playbook: playbook.yml to suit your needs, then continue by typing the BECOME password:"
 echo ""
 
+ansible-playbook ${BASEDIR}/playbook.yml -e @${BASEDIR}/vars.yml -e ansible_python_interpreter=${PYTHON} -c local -i localhost -K

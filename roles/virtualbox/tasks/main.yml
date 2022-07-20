@@ -1,10 +1,8 @@
-- name: Install virtualbox package
-  become: yes
-  apt:
-    name: virtualbox-6.1
+- name: Install VirtualBox
+  include: install.yml
 
-- name: Create mok key to sign kernel modules
-  become: yes
-  apt:
-    name: virtualbox-6.1
+- name: Install VirtualBox extensions
+  include: installExtensions.yml
 
+- name: Build and sign VirtualBox modules
+  include: modules.yml

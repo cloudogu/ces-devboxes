@@ -1,8 +1,8 @@
-# - name: Uninstall vmware
-#   include: uninstall.yml
+- name: Uninstall vmware
+  include: uninstall.yml
 
-# - name: Install vmware
-#   include: install.yml
+- name: Install vmware
+  include: install.yml
 
 - name: Build and sign vmware modules
   include: modules.yml

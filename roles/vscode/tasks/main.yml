@@ -1,21 +1,21 @@
 - name: Remove old snap installation (Ubuntu)
-  become: yes
+  become: true
   snap:
     name: code
     state: absent
 
 - name: Install vscode gpg key (Ubuntu)
-  become: yes
+  become: true
   apt_key:
     url: https://packages.microsoft.com/keys/microsoft.asc
 
 - name: Install vscode apt repository (Ubuntu)
-  become: yes
+  become: true
   apt_repository:
     repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
 
 - name: Install vscode package (Ubuntu)
-  become: yes
+  become: true
   apt:
     name: code
 
@@ -25,6 +25,7 @@
     - esbenp.prettier-vscode
     - k--kato.intellij-idea-keybindings
     - jebbs.plantuml
+    - chadalen.vscode-jetbrains-icon-theme
   register: vscode_result
   changed_when: "'already installed' not in vscode_result.stdout"
 
