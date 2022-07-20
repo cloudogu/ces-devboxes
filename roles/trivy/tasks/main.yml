@@ -1,0 +1,2 @@
+- name: Install trivy
+  include: ubuntu.yml

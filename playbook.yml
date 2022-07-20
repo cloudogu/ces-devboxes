@@ -1,18 +1,16 @@
 - hosts: localhost
   roles:
     #    - git
+    # - gpg
+    # - zsh
+    #    - trivy
     # - recording
-    # IDEs
     #    - idea
     #    - vscode
-    # Browser 
-    #    - chrome
+    # - chrome
     #    - firefox
     #    - restic
-    # SDKs
     # - sdks
-    
-    # VM things
     # - hashicorp
     # - docker
     # - mok-key-create

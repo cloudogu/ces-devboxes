@@ -1,0 +1,27 @@
+- name: Install gpg (Ubuntu)
+  become: true
+  apt:
+    name: 
+    - gnupg
+    - pcscd
+    - scdaemon
+
+- name: Create gpg configuration directory
+  file:
+    path: ~/.gnupg
+    mode: 0700
+    state: directory
+
+- name: Copy gpgrc script
+  copy:
+    src: "{{ playbook_dir }}/config/gpgrc"
+    dest: ~/.gnupg/gpgrc
+
+- name: Render gpg configurations
+  template: 
+    src: "{{ playbook_dir }}/config/{{item}}.j2"
+    dest: ~/.gnupg/{{item}}
+    mode: 0600
+  with_items:
+  - gpg.conf
+  - gpg-agent.conf

@@ -14,25 +14,3 @@
 
 * PDF Viewer
 * (LibreOffice)
-
-### Browser
-
-   * Cheatsheets
-      * Zeiterfassung: https://www.zeiterfassungonline.com/stunden-rechner.html 
-      * Docker: https://opensourcelibs.com/lib/docker-notes
-      * OpenSSL: https://www.freecodecamp.org/news/openssl-command-cheatsheet-b441be1e8c4a/
-      * Bash: https://devhints.io/bash
-      * Testing Regular Expressions: https://www.regextester.com/
-      * SED-Tester: https://sed.js.org/index.html
-      * Explain-Shell: https://explainshell.com/
-
-### ZSH
-
-Plugins:
-- Autocompletion:
-   - git
-   - docker/compose
-   - kubectl / kubecontext
-   - gitflow
-- savepaste (https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/safe-paste)
-- fzf

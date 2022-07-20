@@ -1,5 +1,5 @@
 {
-   "checksum": "af9a2c42de9d31ac183ff38a5234bc64",
+   "checksum": "39a02dd942f62be55b3ab85bab757723",
    "roots": {
       "bookmark_bar": {
          "children": [ {
@@ -935,9 +935,66 @@
          "type": "folder"
       },
       "other": {
-         "children": [  ],
+         "children": [ {
+            "children": [ {
+               "date_added": "13302786476218400",
+               "guid": "a6faeb58-7675-4471-ba8d-492066f00740",
+               "id": "181",
+               "name": "Zeitintervalle aus Uhrzeiten und Pause berechnen",
+               "type": "url",
+               "url": "https://www.zeiterfassungonline.com/stunden-rechner.html"
+            }, {
+               "date_added": "13302786514058739",
+               "guid": "31a7bcb4-4b66-4936-b6d5-1b5e5ad46d2f",
+               "id": "182",
+               "name": "The Ultimate Docker Cheat Sheet | dockerlabs",
+               "type": "url",
+               "url": "https://dockerlabs.collabnix.com/docker/cheatsheet/"
+            }, {
+               "date_added": "13302786551568661",
+               "guid": "765dcd04-e8ae-48ff-8256-e5b24ef83acc",
+               "id": "183",
+               "name": "OpenSSL command cheatsheet",
+               "type": "url",
+               "url": "https://www.freecodecamp.org/news/openssl-command-cheatsheet-b441be1e8c4a/"
+            }, {
+               "date_added": "13302786566039503",
+               "guid": "10d2a7ff-91aa-46db-a12e-05ce7d5d7bbc",
+               "id": "184",
+               "name": "Bash cheatsheet",
+               "type": "url",
+               "url": "https://devhints.io/bash"
+            }, {
+               "date_added": "13302786578762268",
+               "guid": "86a04657-a4d1-476b-972e-8e20f29ca21e",
+               "id": "185",
+               "name": "Regex Tester and Debugger Online - Javascript, PCRE, PHP",
+               "type": "url",
+               "url": "https://www.regextester.com/"
+            }, {
+               "date_added": "13302786592384109",
+               "guid": "a4ad5270-d80d-403e-a088-f751346768dc",
+               "id": "186",
+               "name": "GNU sed live editor",
+               "type": "url",
+               "url": "https://sed.js.org/index.html"
+            }, {
+               "date_added": "13302786604361311",
+               "guid": "70649cfc-329b-41f2-953f-1d9158fcc99b",
+               "id": "187",
+               "name": "explainshell.com - match command-line arguments to their help text",
+               "type": "url",
+               "url": "https://explainshell.com/"
+            } ],
+            "date_added": "13302786440993892",
+            "date_modified": "13302786604361311",
+            "guid": "4d961a45-460c-4a44-b227-15e8bddad5c9",
+            "id": "180",
+            "name": "Cheatsheets",
+            "type": "folder"
+         } ],
          "date_added": "13302691262879434",
-         "date_modified": "0",
+         "date_modified": "13302786476218400",
          "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
          "id": "2",
          "name": "Other bookmarks",

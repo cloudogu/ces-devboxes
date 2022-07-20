@@ -1,0 +1,53 @@
+- name: Install zsh and required dependencies
+  become: true
+  apt:
+    name:
+    - zsh
+    - python3
+    - python3-pip
+
+- name: Install fzf
+  include_tasks: fzf.yml
+
+- name: Link zsh configuration
+  copy:
+    src: "{{ playbook_dir }}/config/{{ item }}"
+    dest: ~/.{{ item }}
+  with_items:
+  - zshrc
+
+- name: Find path of zsh
+  shell: which zsh
+  register: whichzsh
+  changed_when: False
+
+- name: Change default shell to zsh
+  become: true
+  user:
+    name: "{{ user }}"
+    shell: "{{ whichzsh.stdout }}"
+  when: not ansible_check_mode
+
+- name: Install oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh
+    dest: ~/.oh-my-zsh
+    update: no
+
+- name: Install zsh-autosuggestions
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    update: no
+
+- name: Install zsh-syntax-highlighting
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    update: no
+
+- name: Install powerlevel10k theme
+  git:
+    repo: https://github.com/romkatv/powerlevel10k
+    dest: ~/.oh-my-zsh/custom/themes/powerlevel10k
+    update: no
