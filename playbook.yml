@@ -10,4 +10,4 @@
     # - virtualbox
     # - vmwareplayer
     # - mok-key-import
-    - packer
+    - hashicorp

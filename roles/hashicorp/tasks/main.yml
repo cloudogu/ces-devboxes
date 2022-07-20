@@ -1,0 +1,8 @@
+- name: Install Hashicorp apt repository
+  include: hashicorp.yml
+
+- name: Install packer
+  include: packer.yml
+
+- name: Install vagrant
+  include: vagrant.yml

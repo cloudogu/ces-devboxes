@@ -1,9 +1,7 @@
-- name: Install restic
+- name: Install packer package
   become: true
   apt:
-    name: 
-    - restic
-    - nfs-common
+    name: packer
     state: latest
     update_cache: true
     cache_valid_time: "{{ aptcachetime }}"

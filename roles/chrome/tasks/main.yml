@@ -11,7 +11,7 @@
       - gnupg2
       - ubuntu-keyring
     state: latest
-    update_cache: yes
+    update_cache: true
     cache_valid_time: "{{ aptcachetime }}"
 
 - name: Add google chrome apt key
@@ -33,7 +33,7 @@
     name:
       - google-chrome-stable
     state: latest
-    update_cache: yes
+    update_cache: true
     cache_valid_time: "{{ aptcachetime }}"
 
 ###

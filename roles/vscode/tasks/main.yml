@@ -1,23 +1,26 @@
-- name: Remove old snap installation (Ubuntu)
+- name: Remove old snap installation
   become: true
   snap:
     name: code
     state: absent
 
-- name: Install vscode gpg key (Ubuntu)
+- name: Install vscode gpg key
   become: true
   apt_key:
     url: https://packages.microsoft.com/keys/microsoft.asc
 
-- name: Install vscode apt repository (Ubuntu)
+- name: Install vscode apt repository
   become: true
   apt_repository:
     repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
 
-- name: Install vscode package (Ubuntu)
+- name: Install vscode package
   become: true
   apt:
     name: code
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ aptcachetime }}"
 
 - name: install vscode extensions
   command: "code --install-extension '{{ item }}'"

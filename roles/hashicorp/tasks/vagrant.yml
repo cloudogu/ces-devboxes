@@ -1,0 +1,11 @@
+- name: Install vagrant package
+  become: true
+  apt:
+    name: vagrant
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ aptcachetime }}"
+
+- name: Install vagrant-disksize plugin
+  become: true
+  shell: vagrant plugin install vagrant-disksize
