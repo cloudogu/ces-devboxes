@@ -6,3 +6,6 @@
 
 - name: Install vagrant
   include: vagrant.yml
+
+- name: Install terraform
+  include: terraform.yml

@@ -1,0 +1,7 @@
+- name: Install terraform package
+  become: true
+  apt:
+    name: terraform
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ aptcachetime }}"

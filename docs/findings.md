@@ -30,14 +30,6 @@
       * SED-Tester: https://sed.js.org/index.html
       * Explain-Shell: https://explainshell.com/
 
-### VM Dinge
-
-* VMWare Workstation Pro
-* (ggf. QEMU)
-* Virtualbox
-* Packer
-* Vagrant (virtualbox-guest additions plugin??)
-
 ### ZSH
 
 Plugins:
