@@ -6,7 +6,8 @@
     #    - chrome
     #    - firefox
     #    - restic
-    - mok-key-create
-    - virtualbox
+    # - mok-key-create
+    # - virtualbox
     # - vmwareplayer
-    - mok-key-import
+    # - mok-key-import
+    - packer

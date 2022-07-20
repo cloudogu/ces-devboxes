@@ -15,7 +15,7 @@ vmware:
   modules:
     version: w16.2.3-k5.18
 
-# General settings
+# APT settings
 aptcachetime: 3600
 
 # Chrome settings
