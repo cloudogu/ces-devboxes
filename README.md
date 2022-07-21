@@ -28,7 +28,7 @@ The devbox install Chrome and Firefox as Browsers. It also adds some basic exten
 
 **SDK Manager**
 
-- SDKMan with preinstalled Java8 and Java11
+- Jabba with preinstalled Java8 and Java11
    - Also adds two aliases `java8` and `java11` for a convenient switch between versions.
 - gvm with newest Go version being installed
 - nvm with newest Node version being installed
