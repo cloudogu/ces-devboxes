@@ -38,6 +38,6 @@
 - name: Install yarn
   become: true
   become_user: "{{ user }}"
-  shell: npm install --global yarn
+  shell: source "{{ ansible_env.HOME }}/.nvm/nvm.sh" && npm install --global yarn
   args:
     executable: /usr/bin/zsh
