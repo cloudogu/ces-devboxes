@@ -4,24 +4,46 @@ This repository contains ansible roles to setup a new development machine for th
 
 The playbook will install and configure the following tools:
 
-* zsh (configured with [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh))
-* tmux (inspired from [.tmux](https://github.com/gpakosz/.tmux))
-* vim (configured with [vimrc](https://github.com/amix/vimrc))
-* docker
-* vagrant
-* virtual box
-* packer
-* terraform
-* gcloud, kubectl and kubectx
-* gpg
-* git
-* mercurial
-* java and maven
-* node.js
-* golang
-* vscode
-* Intellij
-* and many more
+**IDEs**
+
+- IntelliJ Ultimate
+- VSCode with some convenient plugins
+
+**Working with VMs**
+
+- Virtualbox (supports Secure-Boot)
+- VMWare Workstation Pro 16 (supports Secure-Boot)
+- Hashicorp
+  - packer
+  - terraform
+  - vagrant
+
+**Terminal**
+
+Installs zsh with some preconfigured things and plugins. See [.zshrc](config/zshrc) for more information.
+
+**Browser**
+
+The devbox install Chrome and Firefox as Browsers. It also adds some basic extensions and bookmarks into Chrome.
+
+**SDK Manager**
+
+- SDKMan with preinstalled Java8 and Java11
+   - Also adds two aliases `java8` and `java11` for a convenient switch between versions.
+- gvm with newest Go version being installed
+- nvm with newest Node version being installed
+
+**k8s**
+
+- kubectl
+- gcloud
+- k9s
+
+**Recording tools**
+
+- gif image optimization: `gifsicle` 
+- gif screen recording: `peek`
+- video screen recording: `kazam`
 
 ## Tested Operating Systems
 
@@ -31,25 +53,22 @@ The playbook will install and configure the following tools:
 
 * Ansible >= 2.6
 
-### Ubuntu
-
-Install ansible
-
-```bash
-sudo add-apt-repository ppa:ansible/ansible
-sudo apt-get update
-sudo apt-get install ansible
-```
-
 ## Getting started
 
-Just run the `devbox` script, on the first run it will ask some question to personalize the installed configurations.
-After that it will ask for your sudo password and then apply the ansible playbook. 
-
-## Tags
-
-Its also possible to only apply certain tags, e.g.
-
-`devbox --tags zsh`
-
-See [playbook](playbook.yml) for existing tags.
+1. Copy the `vars_template.yml` file from the root directory as `vars.yml` and change the required fields accordingly:
+   - `mail`: Your E-Mail (xxx.xxx@cloudogu.com) used for git commits
+   - `displayName`: Name used to display for git commits
+   - `gpgKey`: Your gpg key id. Cen be normally extracted
+   - with (`gpg --card-status | grep "sec#" | sed "s|.*\(0x[0-9A-Z]*\)\s.*|\1|g"`)
+   - `user`: The current name of the user
+   - `mokutils.password`: The password used to import the newly generated MOK (Machine-Owner-Key). 
+2. Run the devbox: `.\devbox`. After that it will ask for your sudo password and then apply the ansible playbook.
+3. After executing the
+   devbox you should reboot your machine. The machine management tool should start (blue screen). You should proceed by
+   - `Press Any Key`
+   - `Enroll MOK`
+   - `Continue`
+   - `yes`
+   - Type the configured `mokutils.password`
+   - `OK`
+   - `Continue boot`

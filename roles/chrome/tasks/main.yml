@@ -39,6 +39,14 @@
 ###
 ### Manage Chrome Booksmarks
 ###
+- name: Create Chrome extensions directory for all users
+  become: true
+  become_user: "{{ user }}"
+  file:
+    dest: "{{ ansible_env.HOME }}/.config/google-chrome/Default"
+    state: directory
+  when: chrome.bookmarks
+
 - name: Copy bookmarks
   become: true
   become_user: "{{ user }}"

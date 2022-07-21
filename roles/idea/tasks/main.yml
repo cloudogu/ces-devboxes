@@ -38,6 +38,7 @@
   when: intellijVersion.stdout != intellij_version
 
 - name: Increase file descriptor limit
+  become: true
   copy:
     src: "{{ playbook_dir }}/config/intellij/90-idea.conf"
     dest: /etc/sysctl.d/90-idea.conf
