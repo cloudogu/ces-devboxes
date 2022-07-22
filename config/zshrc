@@ -88,6 +88,11 @@ export LANG=en_US.UTF-8
 # Preferred editor for local and remote sessions
 export EDITOR='nano'
 
+# Add config for go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
+export GOPRIVATE="github.com/cloudogu/cesapp github.com/cloudogu/cesapp/v2 github.com/cloudogu/cesapp/v3 github.com/cloudogu/cesapp/v4 github.com/cloudogu/cesapp/v5"
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs.
 [ -f ~/.aliases_local ] && source ~/.aliases_local
 [ -f ~/.aliases_devbox ] && source ~/.aliases_devbox
