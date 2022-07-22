@@ -14,11 +14,6 @@
   - kubectx
   - kubens
 
-- name: Create completions directory
-  file:
-    path: ~/.oh-my-zsh/completions
-    state: directory
-
 - name: Link kubectx completions
   file:
     src: /opt/kubectx/completion/_{{ item }}.zsh

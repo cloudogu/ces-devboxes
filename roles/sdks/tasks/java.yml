@@ -26,7 +26,7 @@
   become: true
   become_user: "{{ user }}"
   lineinfile: 
-    path: "{{ ansible_env.HOME }}/.bash_aliases"
+    path: "{{ ansible_env.HOME }}/.aliases_devbox"
     line: '{{ item }}'
     regexp: '^{{ item }}$'
     state: present

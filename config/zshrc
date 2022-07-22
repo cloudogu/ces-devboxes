@@ -54,13 +54,11 @@ plugins=(
   safe-paste
 )
 
-# Enable automatic completion bash for gopass
-#source <(gopass completion bash)
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+# Config for autocompletions
+autoload -U compinit && compinit
 
-# load java-env plugin, if is installed
-[ -d ~/.oh-my-zsh/custom/plugins/java-env ] && plugins+=(java-env)
-
+# Source Oh-My-Zsh
 source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -91,9 +89,13 @@ export LANG=en_US.UTF-8
 export EDITOR='nano'
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs.
-[ -f ~/.bash_aliases ] && source ~/.bash_aliases
-[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
-[ -f ~/.docker_aliases ] && source ~/.docker_aliases
+[ -f ~/.aliases_local ] && source ~/.aliases_local
+[ -f ~/.aliases_devbox ] && source ~/.aliases_devbox
+[ -f ~/.aliases_kubectl ] && source ~/.aliases_kubectl
+[ -f ~/.aliases_docker ] && source ~/.aliases_docker
+
+# Source local zshrc changes
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # fzf
 # add support for ctrl+o to open selected file in VS Code
@@ -109,8 +111,8 @@ export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
 [ -f ~/.gorc ] && source ~/.gorc
 
 # Configuration for jabba, gvm, nvm
-[ -s "/home/jsprey/.jabba/jabba.sh" ] && source "/home/jsprey/.jabba/jabba.sh"
-[[ -s "/home/jsprey/.gvm/scripts/gvm" ]] && source "/home/jsprey/.gvm/scripts/gvm"
+[ -s "$HOME/.jabba/jabba.sh" ] && source "$HOME/.jabba/jabba.sh"
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

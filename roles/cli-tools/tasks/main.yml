@@ -12,26 +12,24 @@
       - jq
       - ncdu
       - btrfs-progs
-  when: ansible_distribution == "Ubuntu"
 
 - name: Install bat
   include: bat.yml
 
 - name: Install gotop
   include: gotop.yml
-  when: ansible_distribution == "Ubuntu"
 
 - name: Install ctop
   include: ctop.yml
-  when: ansible_distribution == "Ubuntu"
 
 - name: Install gopass
   include: gopass.yml
-  when: ansible_distribution == "Ubuntu"
 
 - name: Install yq
   include: yq.yml
-  when: ansible_distribution == "Ubuntu"
+
+- name: Install lsd
+  include: lsd.yml
 
 - name: Install aliases
   include: aliases.yml

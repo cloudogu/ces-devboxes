@@ -1,0 +1,15 @@
+# replaces ls with lsd
+alias ls="lsd"
+
+# replace top with gtop
+alias top="gotop"
+
+# add some alias for quick editing and viewing of zshrc, history, and aliases
+alias cz="code ~/.zshrc"
+alias bz="bat ~/.zshrc"
+alias cad="code ~/.aliases_devbox"
+alias bad="bat ~/.aliases_devbox"
+alias ca="code ~/.aliases_local"
+alias ba="bat ~/.aliases_local"
+alias ch="code ~/.zsh_history"
+alias bh="bat ~/.zsh_history"

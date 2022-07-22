@@ -1,6 +1,35 @@
+- name: Install required dependencies for gopass
+  become: true
+  apt:
+    name:
+      - git
+      - gnupg
+      - rng-tools
+
+- name: Add gopass apt repository key
+  become: true
+  apt_key:
+    url: https://packages.gopass.pw/repos/gopass/gopass-archive-keyring.gpg
+    keyring: /etc/apt/keyrings/gopass.gpg
+
+- name: Add gopass apt repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/gopass.gpg] https://packages.gopass.pw/repos/gopass stable main
+    state: present
+    filename: gopass
+
 - name: Install gopass (Ubuntu)
   become: true
   apt:
     name: 
     - gopass
     - xclip
+
+- name: Create completions directory
+  file:
+    path: ~/.oh-my-zsh/completions
+    state: directory
+
+- name: Install zsh autocompletion for gopass
+  shell: gopass completion zsh > ~/.oh-my-zsh/completions/_gopass.zsh

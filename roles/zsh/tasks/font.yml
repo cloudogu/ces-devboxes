@@ -12,35 +12,18 @@
     - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
     - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
     - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+  register: fonts
 
 - name: Rebuild font cache
   shell: fc-cache -f -v
+  when: fonts.changed
 
 - name: Capture default terminal profile
   shell: gsettings get org.gnome.Terminal.ProfilesList default | sed "s/'//g"
   register: profile
   changed_when: False
+  when: fonts.changed
 
 - name: Set nerd-font for current terminal profile
   shell: gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:{{ profile.stdout }}/" font "MesloLGS NF 11"
-
-- name: Install powerline font
-  become: true
-  apt:
-    name:
-      - powerline
-      - fonts-powerline
-
-- name: Install powerline font
-  become: true
-  apt:
-    name:
-      - powerline
-      - fonts-powerline
-
-- name: Copy powerlevel config
-  copy:
-    src: "{{ playbook_dir }}/config/{{ item }}"
-    dest: ~/.{{ item }}
-  with_items:
-    - ".pk10k.zsh"
+  when: fonts.changed

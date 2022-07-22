@@ -1,9 +1,14 @@
 - name: Download kubectl_aliases
   get_url:
     url: https://raw.githubusercontent.com/ahmetb/kubectl-alias/master/.kubectl_aliases
-    dest: ~/.kubectl_aliases
+    dest: ~/.aliases_kubectl
 
 - name: Download docker_aliases
   get_url:
     url: "https://github.com/schnatterer/docker-aliases/releases/download/{{ docker_aliases_version }}/default.docker_aliases"
-    dest: ~/.docker_aliases
+    dest: ~/.aliases_docker
+
+- name: Copy devbox aliases
+  copy:
+    src: "{{ playbook_dir }}/config/aliases_devbox"
+    dest: ~/.aliases_devbox
