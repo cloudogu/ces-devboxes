@@ -9,7 +9,10 @@
 - name: Install fzf
   include_tasks: fzf.yml
 
-- name: Link zsh configuration
+- name: Install fonts
+  include_tasks: font.yml
+
+- name: Copy zsh configuration
   copy:
     src: "{{ playbook_dir }}/config/{{ item }}"
     dest: ~/.{{ item }}

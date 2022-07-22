@@ -25,12 +25,9 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
 
-  # scm
+  # git
   git
   git-flow
-  mercurial
-  svn
-  scm
 
   # javascript
   npm
