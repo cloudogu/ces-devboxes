@@ -41,9 +41,13 @@ The devbox install Chrome and Firefox as Browsers. It also adds some basic exten
 
 **Recording tools**
 
-- gif image optimization: `gifsicle` 
+- gif image optimization: `gifsicle`
 - gif screen recording: `peek`
 - video screen recording: `kazam`
+
+**Snippet Manager with a preset of handy snippets**
+
+The snippet manager pet is installed. You can edit your snippets with `pet edit` and search and apply snippets in the CLI with the hotkey `CTRL+S`.
 
 ## Tested Operating Systems
 

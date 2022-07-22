@@ -1,35 +1,38 @@
-- name: Install cli tools from repository (Ubuntu)
-  become: true
-  apt:
-    name:
-      - htop
-      - iftop
-      - make
-      - openssl
-      - wget
-      - curl
-      - subversion
-      - jq
-      - ncdu
-      - btrfs-progs
-
-- name: Install bat
-  include: bat.yml
-
-- name: Install gotop
-  include: gotop.yml
-
-- name: Install ctop
-  include: ctop.yml
-
-- name: Install gopass
-  include: gopass.yml
-
-- name: Install yq
-  include: yq.yml
-
-- name: Install lsd
-  include: lsd.yml
-
-- name: Install aliases
-  include: aliases.yml
+#- name: Install cli tools from repository (Ubuntu)
+#  become: true
+#  apt:
+#    name:
+#      - htop
+#      - iftop
+#      - make
+#      - openssl
+#      - wget
+#      - curl
+#      - subversion
+#      - jq
+#      - ncdu
+#      - btrfs-progs
+#
+#- name: Install bat
+#  include: bat.yml
+#
+#- name: Install gotop
+#  include: gotop.yml
+#
+#- name: Install ctop
+#  include: ctop.yml
+#
+#- name: Install gopass
+#  include: gopass.yml
+#
+#- name: Install yq
+#  include: yq.yml
+#
+#- name: Install lsd
+#  include: lsd.yml
+#
+- name: Install pet snippet manager
+  include: pet.yml
+#
+#- name: Install aliases
+#  include: aliases.yml

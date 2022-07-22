@@ -115,6 +115,9 @@ export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
 # configure go dev environment
 [ -f ~/.gorc ] && source ~/.gorc
 
+# load pet rc configuration, if available
+[ -f ~/.config/pet/.petrc ] && source ~/.config/pet/.petrc
+
 # Configuration for jabba, gvm, nvm
 [ -s "$HOME/.jabba/jabba.sh" ] && source "$HOME/.jabba/jabba.sh"
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"

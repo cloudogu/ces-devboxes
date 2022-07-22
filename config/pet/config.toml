@@ -1,0 +1,7 @@
+[General]
+snippetfile = "~/.config/pet/snippet.toml"
+editor = "sensible-editor"
+column = 40
+selectcmd = "fzf"
+backend = "gist"
+sortby = ""
