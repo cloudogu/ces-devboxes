@@ -7,5 +7,4 @@
     cache_valid_time: "{{ aptcachetime }}"
 
 - name: Install vagrant-disksize plugin
-  become: true
   shell: vagrant plugin install vagrant-disksize

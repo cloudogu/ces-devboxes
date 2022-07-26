@@ -4,3 +4,4 @@ ctop_version: 0.7.7
 docker_aliases_version: 0.7.0
 yq_version: 4.25.3
 pet_version: 0.4.0
+lsd_version: 0.22.0
