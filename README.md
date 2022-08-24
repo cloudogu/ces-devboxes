@@ -63,7 +63,7 @@ CLI with the hotkey `CTRL+S`.
 1. Copy the `vars_template.yml` file to `vars.yml` and change the required fields accordingly:
   - `mail`: Your e-mail address (xxx.xxx@cloudogu.com) used for git commits
   - `displayName`: Name used to display for git commits
-  - `gpgKey`: Your gpg key id. Cen be normally extracted
+  - `gpgKey`: Your gpg key id. Can be normally extracted with
       - `gpg --card-status | grep "sec#" | sed "s|.*\(0x[0-9A-Z]*\)\s.*|\1|g"`
   - `user`: The current name of the user
   - `mokutils.password`: The password used to import the newly generated MOK (Machine-Owner-Key).
