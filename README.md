@@ -20,11 +20,11 @@ The playbook will install and configure the following tools:
 
 **Terminal**
 
-Installs zsh with some preconfigured things and plugins. See [.zshrc](config/zshrc) for more information.
+Installs zsh with some preconfigurations and plugins. See [.zshrc](config/zshrc) for more information.
 
 **Browser**
 
-The devbox install Chrome and Firefox as Browsers. It also adds some basic extensions and bookmarks into Chrome.
+The devbox installs Chrome and Firefox as browsers. It also adds some basic extensions and bookmarks into Chrome.
 
 **SDK Manager**
 
@@ -47,27 +47,27 @@ The devbox install Chrome and Firefox as Browsers. It also adds some basic exten
 
 **Snippet Manager with a preset of handy snippets**
 
-The snippet manager pet is installed. You can edit your snippets with `pet edit` and search and apply snippets in the
+The snippet manager ´pet´ is installed. You can edit your snippets with `pet edit` and search and apply snippets in the
 CLI with the hotkey `CTRL+S`.
 
 ## Tested Operating Systems
 
-* Ubuntu (tested on 22.04)
+* Ubuntu 22.04
 
 ## Prerequisites
 
 * Ansible >= 2.6
-
+   * Install via `sudo apt install ansible`
 ## Getting started
 
-1. Copy the `vars_template.yml` file from the root directory as `vars.yml` and change the required fields accordingly:
-  - `mail`: Your E-Mail (xxx.xxx@cloudogu.com) used for git commits
+1. Copy the `vars_template.yml` file to `vars.yml` and change the required fields accordingly:
+  - `mail`: Your e-mail address (xxx.xxx@cloudogu.com) used for git commits
   - `displayName`: Name used to display for git commits
   - `gpgKey`: Your gpg key id. Cen be normally extracted
-  - with (`gpg --card-status | grep "sec#" | sed "s|.*\(0x[0-9A-Z]*\)\s.*|\1|g"`)
+      - `gpg --card-status | grep "sec#" | sed "s|.*\(0x[0-9A-Z]*\)\s.*|\1|g"`
   - `user`: The current name of the user
   - `mokutils.password`: The password used to import the newly generated MOK (Machine-Owner-Key).
-2. Run the devbox: `.\devbox`. After that it will ask for your sudo password and then apply the ansible playbook.
+2. Run the devbox: `./devbox`. After that it will ask for your sudo password and then apply the ansible playbook.
 3. After executing the
    devbox you should reboot your machine. The machine management tool should start (blue screen). You should proceed by
   - `Press Any Key`
@@ -83,11 +83,11 @@ CLI with the hotkey `CTRL+S`.
 
 It can happen that VirtualBox and VMWare could not load the required modules because of secure boot. Sometimes it can
 happen that the generated MOK key ist not correctly imported after the devbox. However, this can be done manually fairly
-easy:
+easily:
 
 ```
 sudo mokutil --import /mok/CES_MOCK.dep
 ```
 
-Then you need to provide a password. After that reboot the machine and enroll the MOK key with the password you choose
+Then you need to provide a password. After that reboot the machine and enroll the MOK key with the password you chose
 before. After enrolling the mok VMWare and Virtualbox should work without any problems.
