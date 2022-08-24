@@ -56,9 +56,11 @@ CLI with the hotkey `CTRL+S`.
 
 ## Prerequisites
 
-* Ansible >= 2.6
+* A fully configured YubiKey with valid GPG Key
 
 ## Getting started
+
+It is possible to select only a subset of roles. For this you need to open the `playbook.yml` and comment out all unwanted roles. 
 
 1. Copy the `vars_template.yml` file from the root directory as `vars.yml` and change the required fields accordingly:
   - `mail`: Your E-Mail (xxx.xxx@cloudogu.com) used for git commits
