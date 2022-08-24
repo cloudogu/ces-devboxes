@@ -77,6 +77,7 @@ CLI with the hotkey `CTRL+S`.
   - Type the configured `mokutils.password`
   - `OK`
   - `Continue boot`
+4. You should open a Terminal and set the font to `MesloLGS NF in Größe 11`.
 
 **Note:**
 
