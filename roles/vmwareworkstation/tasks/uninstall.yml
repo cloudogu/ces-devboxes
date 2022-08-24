@@ -1,4 +1,4 @@
-- name: Get vmware workstation version
+- name: Get vmware version
   become: true
   shell: vmware-installer -l | grep vmware-player | sed "s|vmware-player\s*||g" | sed "s|\s*||g"
   register: vmware_installedVersion

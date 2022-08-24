@@ -17,5 +17,5 @@
     - k8s
     - mok-key-create
     - virtualbox
-    - vmwareplayer
+    - vmwareworkstation
     - mok-key-import

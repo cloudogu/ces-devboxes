@@ -14,12 +14,12 @@
     path: /vmware-player
     state: directory
 
-- name: Download VMWare Workstation pro bundle
+- name: Download VMWare pro bundle
   become: true
   get_url:
     url: https://www.vmware.com/go/getworkstation-linux
     dest: /vmware-player/VMware-Workstation-Full.bundle
 
-- name: Install vmware player pro bundle
+- name: Install VMWare pro bundle
   become: true
   shell: sh /vmware-player/VMware-Workstation-Full.bundle
