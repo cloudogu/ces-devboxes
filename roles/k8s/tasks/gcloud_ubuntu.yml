@@ -1,20 +1,28 @@
-- name: Install gcloud gpg key (Ubuntu)
-  become: true
-  apt_key:
-    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-    keyring: /usr/share/keyrings/cloud.google.gpg
+- name: Capture gcloud version
+  shell: gcloud --version | grep "Google Cloud SDK" | sed "s|Google Cloud SDK ||g"
+  register: gcloud_capture
+  failed_when: false
+  args:
+    executable: /usr/bin/zsh
 
-- name: Capture lsb release (Ubuntu)
-  shell: lsb_release -cs
-  register: lsbrelease
-  changed_when: False
+- name: Download gcloud archive
+  unarchive:
+    src: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-{{ gcloud_tools_version }}-linux-x86_64.tar.gz"
+    dest: ~/.local
+    remote_src: yes
+  when: gcloud_tools_version != gcloud_capture.stdout
 
-- name: Install docker apt repository (Ubuntu)
-  become: true
-  apt_repository:
-    repo: deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main
+- name: Add gcloud rc configs
+  lineinfile:
+    path: ~/.zshrc
+    line: |
+      
+      # The next line updates PATH for the Google Cloud SDK.
+      if [ -f "$HOME/.local/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/.local/google-cloud-sdk/path.zsh.inc"; fi
+      
+      # The next line enables shell command completion for gcloud.
+      if [ -f "$HOME/.local/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/.local/google-cloud-sdk/completion.zsh.inc"; fi
+    state: present
+    insertafter: EOF
+    create: True
 
-- name: Install google-cloud-sdk package (Ubuntu)
-  become: true
-  apt:
-    name: google-cloud-sdk

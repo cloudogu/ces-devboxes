@@ -29,6 +29,7 @@ gotop_version: 4.1.3
 ctop_version: 0.7.7
 pet_version: 0.4.0
 lsd_version: 0.22.0
+gcloud_tools_version: 394.0.0
 docker_aliases_version: 0.7.0
 yq_version: 4.25.3
 vmware:

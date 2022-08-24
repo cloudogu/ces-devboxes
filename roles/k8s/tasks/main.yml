@@ -1,2 +1,18 @@
-- name: Install k8s tools
-  include: linux.yml
+- name: Install gcloud
+  include: gcloud_ubuntu.yml
+
+- name: Install kubectl
+  shell: source ~/.local/google-cloud-sdk/path.zsh.inc && gcloud components install kubectl --quiet
+  args:
+    executable: /usr/bin/zsh
+
+- name: Install gke-gcloud-auth-plugin
+  shell: source ~/.local/google-cloud-sdk/path.zsh.inc && gcloud components install gke-gcloud-auth-plugin
+  args:
+    executable: /usr/bin/zsh
+
+- name: Install kubectx
+  include: kubectx.yml
+
+- name: Install k9s
+  include: k9s.yml
