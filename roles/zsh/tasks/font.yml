@@ -27,3 +27,7 @@
 - name: Set nerd-font for current terminal profile
   shell: gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:{{ profile.stdout }}/" font "MesloLGS NF 11"
   when: fonts.changed
+
+- name: Set use system font to false for current terminal profile
+  shell: gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:{{ profile.stdout }}/" use-system-font false
+  when: fonts.changed
