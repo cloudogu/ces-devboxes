@@ -67,7 +67,7 @@ It is possible to select only a subset of roles. For this you need to open the `
   - `displayName`: Name used to display for git commits
   - `gpgKey`: Your gpg key id. Can be normally extracted with
       - `gpg --card-status | grep "sec#" | sed "s|.*\(0x[0-9A-Z]*\)\s.*|\1|g"`
-  - `user`: The current name of the user
+  - `user`: The name of your Ubuntu user account
   - `mokutils.password`: The password used to import the newly generated MOK (Machine-Owner-Key).
 2. Run the devbox: `./devbox`. After that it will ask for your sudo password and then apply the ansible playbook.
 3. After executing the
