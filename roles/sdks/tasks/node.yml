@@ -3,12 +3,12 @@
   register: nvm_installation
   failed_when: false
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash
 
 - name: Install nvm
   shell: curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash
   when: nvm_installation.rc != 0
 
 - name: Check installation of node v18.6.0
@@ -18,14 +18,14 @@
   register: nvm_18
   failed_when: false
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash
 
 - name: Install Node v18.6.0
   become: true
   become_user: "{{ user }}"
   shell: source "{{ ansible_env.HOME }}/.nvm/nvm.sh" && nvm install v18.6.0
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash
   when: nvm_18.rc != 0
 
 - name: Set Node v18.6.0 as default
@@ -33,11 +33,11 @@
   become_user: "{{ user }}"
   shell: source "{{ ansible_env.HOME }}/.nvm/nvm.sh" && nvm alias default v18.6.0
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash
 
 - name: Install yarn
   become: true
   become_user: "{{ user }}"
   shell: source "{{ ansible_env.HOME }}/.nvm/nvm.sh" && npm install --global yarn
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash

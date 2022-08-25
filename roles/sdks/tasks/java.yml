@@ -6,21 +6,21 @@
   become_user: "{{ user }}"
   shell: source "{{ ansible_env.HOME }}/.jabba/jabba.sh" && jabba install zulu@1.8.282
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash
 
 - name: Install OpenJDK 11
   become: true
   become_user: "{{ user }}"
   shell: source "{{ ansible_env.HOME }}/.jabba/jabba.sh" && jabba install zulu@1.11.0-10
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash
 
 - name: Set OpenJDK 11 as default
   become: true
   become_user: "{{ user }}"
   shell: source "{{ ansible_env.HOME }}/.jabba/jabba.sh" && jabba alias default zulu@1.11.0-10
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash
 
 - name: Add java aliases
   become: true

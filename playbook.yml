@@ -2,7 +2,8 @@
   roles:
     - git
     - gpg
-    - zsh
+    - bash
+#    - zsh
     - cli-tools
     - trivy
     - recording

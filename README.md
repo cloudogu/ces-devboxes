@@ -79,7 +79,6 @@ It is possible to select only a subset of roles. For this you need to open the `
   - Type the configured `mokutils.password`
   - `OK`
   - `Continue boot`
-4. You should open a Terminal and set the font to `MesloLGS NF in Größe 11`.
 
 **Note:**
 

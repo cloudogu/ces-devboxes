@@ -2,14 +2,14 @@
   include: gcloud_ubuntu.yml
 
 - name: Install kubectl
-  shell: source ~/.local/google-cloud-sdk/path.zsh.inc && gcloud components install kubectl --quiet
+  shell: source ~/.local/google-cloud-sdk/path.bash.inc && gcloud components install kubectl --quiet
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash
 
 - name: Install gke-gcloud-auth-plugin
-  shell: source ~/.local/google-cloud-sdk/path.zsh.inc && gcloud components install gke-gcloud-auth-plugin
+  shell: source ~/.local/google-cloud-sdk/path.bash.inc && gcloud components install gke-gcloud-auth-plugin
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash
 
 - name: Install kubectx
   include: kubectx.yml

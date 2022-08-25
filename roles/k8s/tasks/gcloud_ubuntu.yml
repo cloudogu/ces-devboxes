@@ -3,7 +3,7 @@
   register: gcloud_capture
   failed_when: false
   args:
-    executable: /usr/bin/zsh
+    executable:  /usr/bin/bash
 
 - name: Download gcloud archive
   unarchive:
@@ -12,7 +12,7 @@
     remote_src: yes
   when: gcloud_tools_version != gcloud_capture.stdout
 
-- name: Add gcloud rc configs
+- name: Add gcloud rc configs (zshrc)
   lineinfile:
     path: ~/.zshrc
     line: |
@@ -22,6 +22,20 @@
       
       # The next line enables shell command completion for gcloud.
       if [ -f "$HOME/.local/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/.local/google-cloud-sdk/completion.zsh.inc"; fi
+    state: present
+    insertafter: EOF
+    create: True
+
+- name: Add gcloud rc configs (bash)
+  lineinfile:
+    path: ~/.bashrc
+    line: |
+      
+      # The next line updates PATH for the Google Cloud SDK.
+      if [ -f "$HOME/.local/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/.local/google-cloud-sdk/path.bash.inc"; fi
+      
+      # The next line enables shell command completion for gcloud.
+      if [ -f "$HOME/.local/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/.local/google-cloud-sdk/completion.bash.inc"; fi
     state: present
     insertafter: EOF
     create: True
