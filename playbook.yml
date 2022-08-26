@@ -3,7 +3,7 @@
     - git
     - gpg
     - bash
-#    - zsh
+    - zsh
     - cli-tools
     - trivy
     - recording
