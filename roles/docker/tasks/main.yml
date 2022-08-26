@@ -1,8 +1,45 @@
-- name: Install docker (Linux)
-  include: linux.yml
-  when: ansible_system == "Linux"
+- name: Install docker gpg key 
+  become: true
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    keyring: /etc/apt/keyrings/docker.gpg
 
-- name: Install docker (MacOSX)
-  homebrew_cask:
-    name: docker-edge
-  when: ansible_distribution == "MacOSX"
+- name: Capture lsb release
+  shell: lsb_release -cs
+  register: lsbrelease
+  changed_when: False
+
+- name: Capture architecture
+  shell: dpkg --print-architecture
+  register: osarchitecture
+  changed_when: False
+
+- name: Remove docker test apt repository 
+  become: true
+  apt_repository:
+    repo: deb [arch={{ osarchitecture.stdout }}] https://download.docker.com/linux/ubuntu {{ lsbrelease.stdout }} test
+    state: absent
+
+- name: Install docker stable apt repository 
+  become: true
+  apt_repository:
+    repo: deb [arch={{ osarchitecture.stdout }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ lsbrelease.stdout }} stable
+
+- name: Install docker packages 
+  become: true
+  apt:
+    name:
+      - docker-ce 
+      - docker-ce-cli 
+      - containerd.io 
+      - docker-compose-plugin
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ aptcachetime }}"
+
+- name: Add user to docker group
+  become: true
+  user:
+    name: "{{ user }}"
+    groups: docker
+    append: true

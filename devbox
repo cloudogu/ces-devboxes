@@ -1,44 +1,50 @@
 #!/bin/bash
-set -euo pipefail
-IFS=$'\n\t'
+set -o errexit
+set -o nounset
+set -o pipefail
 
-if ! which ansible-playbook > /dev/null 2>&1; then
-  echo "Could not find ansible. Please install ansible first"
-  exit 1
-fi
+function ensureAnsible() {
+  ###################
+  # Install ansible #
+  if ! grep -q "ansible/ansible" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+      echo "Adding Ansible PPA"
+      sudo apt-add-repository ppa:ansible/ansible -y
+  fi
 
-BASEDIR=$(dirname "$0")
+  if ! hash ansible >/dev/null 2>&1; then
+      echo "Installing Ansible..."
+      sudo apt-get update
+      sudo apt-get install software-properties-common ansible git python3-apt -y
+  else
+      echo "Ansible already installed"
+  fi
+}
 
-if [ ! -f "${BASEDIR}/vars.yml" ]; then
-  echo -n "mail: "
-  read MAIL
-
-  echo -n "displayName: "
-  read DISPLAY_NAME
-
-  echo -n "gpg key: "
-  read GPG_KEY
-
-  cat > "${BASEDIR}/vars.yml" <<EOF
-mail: ${MAIL}
-displayName: ${DISPLAY_NAME}
-gpgKey: "${GPG_KEY}"
-EOF
-fi
-
-if which python3 > /dev/null 2>&1; then
+if which python3 >/dev/null 2>&1; then
   PYTHON=$(which python3)
 else
   PYTHON=$(which python)
 fi
 
-echo "starting ansible ..."
-echo "===================="
+echo "                                     ./////,                    "
+echo "                                 ./////==//////*                "
+echo "                                ////.  ___   ////.              "
+echo "                         ,**,. ////  ,////A,  */// ,**,.        "
+echo "                    ,/////////////*  */////*  *////////////A    "
+echo "                   ////'        \VA.   '|'   .///'       '///*  "
+echo "                  *///  .*///*,         |         .*//*,   ///* "
+echo "                  (///  (//////)**--_./////_----*//////)   ///) "
+echo "                   V///   '°°°°      (/////)      °°°°'   ////  "
+echo "                    V/////(////////\. '°°°' ./////////(///(/'   "
+echo "                       'V/(/////////////////////////////V'      "
 
-ansible-playbook \
-  -e ansible_python_interpreter="${PYTHON}" \
-  --extra-vars="@${BASEDIR}/vars.yml" \
-  "${BASEDIR}/playbook.yml" \
-  --connection local \
-  -i localhost, \
-  -K $@
+ensureAnsible
+
+BASEDIR=$(dirname "$0")
+#####################################
+# Display real installation process #
+echo ""
+echo "Customize the playbook: playbook.yml to suit your needs, then continue by typing the BECOME password:"
+echo ""
+
+ansible-playbook ${BASEDIR}/playbook.yml -e @${BASEDIR}/vars.yml -e ansible_python_interpreter=${PYTHON} -c local -i localhost -K

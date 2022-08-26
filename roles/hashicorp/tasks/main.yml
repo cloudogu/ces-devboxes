@@ -1,0 +1,11 @@
+- name: Install Hashicorp apt repository
+  include_tasks: hashicorp.yml
+
+- name: Install packer
+  include_tasks: packer.yml
+
+- name: Install vagrant
+  include_tasks: vagrant.yml
+
+- name: Install terraform
+  include_tasks: terraform.yml

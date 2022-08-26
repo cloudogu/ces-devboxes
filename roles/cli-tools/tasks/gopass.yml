@@ -1,25 +1,35 @@
-- name: Install gopass (Arch)
-  become: yes
-  pacman:
-    name: gopass
-  when: ansible_distribution == "Archlinux"
+- name: Install required dependencies for gopass
+  become: true
+  apt:
+    name:
+      - git
+      - gnupg
+      - rng-tools
 
-- name: Install gopass apt key (Ubuntu)
-  become: yes
+- name: Add gopass apt repository key
+  become: true
   apt_key:
-    url: https://api.bintray.com/orgs/gopasspw/keys/gpg/public.key
-  when: ansible_distribution == "Ubuntu"
+    url: https://packages.gopass.pw/repos/gopass/gopass-archive-keyring.gpg
+    keyring: /etc/apt/keyrings/gopass.gpg
 
-- name: Install gopass apt repository (Ubuntu)
-  become: yes
-  apt_repository:
-    repo: deb https://dl.bintray.com/gopasspw/gopass trusty main
-  when: ansible_distribution == "Ubuntu"
+- name: Add gopass apt repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/gopass.gpg] https://packages.gopass.pw/repos/gopass stable main
+    state: present
+    filename: gopass
 
 - name: Install gopass (Ubuntu)
-  become: yes
+  become: true
   apt:
     name: 
     - gopass
     - xclip
-  when: ansible_distribution == "Ubuntu"
+
+- name: Create completions directory
+  file:
+    path: ~/.oh-my-zsh/completions
+    state: directory
+
+- name: Install zsh autocompletion for gopass
+  shell: gopass completion zsh > ~/.oh-my-zsh/completions/_gopass.zsh

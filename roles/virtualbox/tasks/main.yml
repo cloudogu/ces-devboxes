@@ -1,16 +1,8 @@
-- name: Install virtualbox (Ubuntu)
-  include: ubuntu.yml
-  when: ansible_distribution == "Ubuntu"
+- name: Install VirtualBox
+  include_tasks: install.yml
 
-- name: Install virtualbox (Arch)
-  become: yes
-  pacman:
-    name: virtualbox
-  when: ansible_distribution == "Archlinux"
+- name: Install VirtualBox extensions
+  include_tasks: installExtensions.yml
 
-- name: Install virtualbox (MacOSX)
-  homebrew_cask:
-    name: 
-    - virtualbox
-    - virtualbox-extension-pack
-  when: ansible_distribution == "MacOSX"
+- name: Build and sign VirtualBox modules
+  include_tasks: modules.yml

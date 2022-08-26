@@ -1,0 +1,80 @@
+---
+
+- name: Install chrome requisites
+  become: true
+  apt:
+    name:
+      - software-properties-common
+      - apt-transport-https
+      - wget
+      - ca-certificates
+      - gnupg2
+      - ubuntu-keyring
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ aptcachetime }}"
+
+- name: Add google chrome apt key
+  become: true
+  apt_key:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    state: present
+
+- name: Add google chrome apt repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+    state: present
+    filename: google-chrome
+
+- name: Install chrome
+  become: true
+  apt:
+    name:
+      - google-chrome-stable
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ aptcachetime }}"
+
+###
+### Manage Chrome Booksmarks
+###
+- name: Create Chrome extensions directory for all users
+  become: true
+  become_user: "{{ user }}"
+  file:
+    dest: "{{ ansible_env.HOME }}/.config/google-chrome/Default"
+    state: directory
+  when: chrome.bookmarks
+
+- name: Copy bookmarks
+  become: true
+  become_user: "{{ user }}"
+  copy:
+    src: Bookmarks
+    dest: "{{ ansible_env.HOME }}/.config/google-chrome/Default/Bookmarks"
+  when: chrome.bookmarks
+
+###
+### Manage Chrome extensions
+###
+
+- name: Create Chrome extensions directory for all users
+  become: true
+  file:
+    path: /usr/share/google-chrome/extensions
+    state: directory
+  when: chrome.extensions
+
+# See https://developer.chrome.com/docs/extensions/mv3/external_extensions/#preference-linux
+- name: Create Chrome JSON file to install extensions for all users
+  become: true
+  template:
+    src: chrome-extensions.json.j2
+    dest: "/usr/share/google-chrome/extensions/{{ item }}.json"
+  with_items:
+    - cjpalhdlnbpafiamejdnhcphjbkeiagm # ublock
+    - bcjindcccaagfpapjjmafapmmgkkhgoa # JSON Formatter
+    - mdjildafknihdffpkfmmpnpoiajfjnjd # Consent-O-Matic
+    - dhdgffkkebhmkfjojejmpbldmpobfkfo # Tampermonkey
+  when: chrome.extensions

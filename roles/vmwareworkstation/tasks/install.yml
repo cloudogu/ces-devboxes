@@ -1,0 +1,25 @@
+- name: Install VMWare requirements
+  become: true
+  apt:
+    name: 
+    - gcc
+    - build-essential
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ aptcachetime }}"
+
+- name: Create VMWare directory
+  become: true
+  file:
+    path: /vmware-player
+    state: directory
+
+- name: Download VMWare pro bundle
+  become: true
+  get_url:
+    url: https://www.vmware.com/go/getworkstation-linux
+    dest: /vmware-player/VMware-Workstation-Full.bundle
+
+- name: Install VMWare pro bundle
+  become: true
+  shell: sh /vmware-player/VMware-Workstation-Full.bundle

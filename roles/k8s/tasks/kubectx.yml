@@ -1,11 +1,11 @@
 - name: Clone kubectx repository
-  become: yes
+  become: true
   git:
     repo: https://github.com/ahmetb/kubectx
     dest: /opt/kubectx
 
 - name: Link kubectx scripts
-  become: yes
+  become: true
   file:
     src: /opt/kubectx/{{ item }}
     dest: /usr/local/bin/{{ item }}
@@ -14,14 +14,9 @@
   - kubectx
   - kubens
 
-- name: Create completions directory
-  file:
-    path: ~/.oh-my-zsh/completions
-    state: directory
-
 - name: Link kubectx completions
   file:
-    src: /opt/kubectx/completion/{{ item }}.zsh
+    src: /opt/kubectx/completion/_{{ item }}.zsh
     dest: ~/.oh-my-zsh/completions/_{{ item }}.zsh
     state: link
   with_items:

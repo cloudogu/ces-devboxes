@@ -1,0 +1,4 @@
+- name: Copy bashrc to local directory
+  copy:
+    src: "{{ playbook_dir }}/config/bashrc"
+    dest: ~/.bashrc

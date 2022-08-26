@@ -1,35 +1,41 @@
-- name: Install vscode (Arch)
-  become: yes
+- name: Remove old snap installation
+  become: true
   snap:
     name: code
-    classic: yes
-    state: present
-  when: ansible_distribution == "Archlinux"
+    state: absent
 
-- name: Install vscode (Ubuntu)
-  become: yes
-  include: ubuntu.yml
-  when: ansible_distribution == "Ubuntu"
+- name: Install vscode gpg key
+  become: true
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
 
-- name: Install vscode (MacOSX)
-  homebrew_cask:
-    name: visual-studio-code
-  when: ansible_distribution == "MacOSX"
+- name: Install vscode apt repository
+  become: true
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+
+- name: Install vscode package
+  become: true
+  apt:
+    name: code
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ aptcachetime }}"
 
 - name: install vscode extensions
   command: "code --install-extension '{{ item }}'"
   with_items:
-  - ms-kubernetes-tools.vscode-kubernetes-tools
-  - ms-azuretools.vscode-docker
-  - EditorConfig.EditorConfig
-  - dbaeumer.vscode-eslint
-  - esbenp.prettier-vscode
-  - vscoss.vscode-ansible
-  - k--kato.intellij-idea-keybindings
-  - marcostazi.vs-code-vagrantfile
-  - jebbs.plantuml
-  - msjsdiag.debugger-for-chrome
-  - ms-vsliveshare.vsliveshare
-  - arcticicestudio.nord-visual-studio-code
+    - esbenp.prettier-vscode
+    - k--kato.intellij-idea-keybindings
+    - jebbs.plantuml
+    - chadalen.vscode-jetbrains-icon-theme
   register: vscode_result
   changed_when: "'already installed' not in vscode_result.stdout"
+
+- name: copy vscode settings
+  become: true
+  become_user: "{{ user }}"
+  copy:
+    src: settings.json
+    dest: "{{ ansible_env.HOME }}/.config/Code/User/settings.json"
+  when: chrome.bookmarks

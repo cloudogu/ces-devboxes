@@ -1,0 +1,56 @@
+- name: Ensure that pet directory exist
+  file:
+    path: ~/.config/pet
+    state: directory
+
+- name: Copy pet rc file
+  copy:
+    src: "{{ playbook_dir }}/config/pet/petrc"
+    dest: ~/.config/pet/.petrc
+
+- name: Check pet config file
+  stat:
+    path: ~/.config/pet/config.toml
+  register: pet_config
+
+- name: Copy default pet config file
+  copy:
+    src: "{{ playbook_dir }}/config/pet/config.toml"
+    dest: ~/.config/pet/config.toml
+  when: not pet_config.stat.exists
+
+- name: Check pet snippet file
+  stat:
+    path: ~/.config/pet/snippet.toml
+  register: pet_snippet
+
+- name: Copy default pet config file
+  copy:
+    src: "{{ playbook_dir }}/config/pet/snippet.toml"
+    dest: ~/.config/pet/snippet.toml
+  when: not pet_snippet.stat.exists
+
+- name: Capture pet version
+  shell: pet version | sed 's|pet version ||g' || true
+  register: pet
+
+- name: Download pet deb
+  become: true
+  get_url:
+    url: "https://github.com/knqyf263/pet/releases/download/v{{ pet_version }}/pet_{{ pet_version }}_linux_amd64.deb"
+    dest: "/opt/pet_{{ pet_version }}.deb"
+  when: pet.stdout != pet_version
+
+- name: Install pet deb
+  become: true
+  apt:
+    deb: "/opt/pet_{{ pet_version }}.deb"
+    force: true
+  when: pet.stdout != pet_version
+
+- name: Remove downloaded pet deb
+  become: true
+  file:
+    path: "/opt/pet_{{ pet_version }}.deb"
+    state: absent
+  when: pet.stdout != pet_version

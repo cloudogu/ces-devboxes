@@ -1,0 +1,5 @@
+---
+
+- name: Install firefox
+  snap:
+    name: firefox

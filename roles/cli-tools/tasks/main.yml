@@ -1,74 +1,38 @@
 - name: Install cli tools from repository (Ubuntu)
-  become: yes
+  become: true
   apt:
     name:
-    - htop
-    - iftop
-    - make
-    - openssl
-    - wget
-    - curl
-    - subversion
-    - jq
-    - ncdu
-  when: ansible_distribution == "Ubuntu"
-
-- name: Install cli tools from repository (Arch)
-  become: yes
-  pacman:
-    name:
-    - htop
-    - iftop
-    - make
-    - openssl
-    - wget
-    - curl
-    - subversion
-    - jq
-    - ncdu
-  when: ansible_distribution == "Archlinux"
-
-- name: Install cli tools from repository (MacOSX)
-  homebrew:
-    name:
-    - htop
-    - iftop
-    - make
-    - openssl
-    - wget
-    - curl
-    - subversion
-    - jq
-    - gotop
-    - ctop
-    - cfssl
-    - gopass
-    - vegeta
-    - ncdu
-  when: ansible_distribution == "MacOSX"
+      - htop
+      - iftop
+      - make
+      - openssl
+      - wget
+      - curl
+      - subversion
+      - jq
+      - ncdu
+      - btrfs-progs
 
 - name: Install bat
   include: bat.yml
 
 - name: Install gotop
   include: gotop.yml
-  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Archlinux"
 
 - name: Install ctop
   include: ctop.yml
-  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Archlinux"
-
-- name: Install cfssl
-  include: cfssl.yml
-  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Archlinux"
 
 - name: Install gopass
   include: gopass.yml
-  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Archlinux"
 
-- name: Install vegeta
-  include: vegeta.yml
-  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Archlinux"
+- name: Install yq
+  include: yq.yml
+
+- name: Install lsd
+  include: lsd.yml
+
+- name: Install pet snippet manager
+  include: pet.yml
 
 - name: Install aliases
   include: aliases.yml

@@ -1,0 +1,32 @@
+- name: Install virtualbox gpg key
+  become: true
+  apt_key:
+    url: "{{ item }}"
+  with_items:
+    - https://www.virtualbox.org/download/oracle_vbox.asc
+    - https://www.virtualbox.org/download/oracle_vbox_2016.asc
+
+- name: Capture lsb release
+  shell: lsb_release -cs
+  register: lsbrelease
+  changed_when: False
+
+- name: Remove wrong configured virtualbox apt repository
+  become: true
+  apt_repository:
+    repo: deb https://download.virtualbox.org/virtualbox/debian {{ lsbrelease.stdout }} contrib
+    state: absent
+
+- name: Install virtualbox apt repository
+  become: true
+  apt_repository:
+    repo: deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian {{ lsbrelease.stdout }} contrib
+    state: present
+
+- name: Install virtualbox package
+  become: true
+  apt:
+    name: virtualbox-6.1
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ aptcachetime }}"

@@ -1,3 +1,0 @@
-- name: Configure apple keyboard (Ubuntu)
-  include: ubuntu.yml
-  when: ansible_distribution == "Ubuntu"

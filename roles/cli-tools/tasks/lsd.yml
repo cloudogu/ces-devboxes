@@ -1,0 +1,24 @@
+- name: Capture lsd version
+  shell: lsd --version | sed 's|lsd ||g' || true
+  register: lsd
+
+- name: Download lsd deb
+  become: true
+  get_url:
+    url: "https://github.com/Peltoche/lsd/releases/download/{{ lsd_version }}/lsd_{{ lsd_version }}_amd64.deb"
+    dest: "/opt/lsd_{{ lsd_version }}.deb"
+  when: lsd.stdout != lsd_version
+
+- name: Install lsd deb
+  become: true
+  apt:
+    deb: "/opt/lsd_{{ lsd_version }}.deb"
+    force: true
+  when: lsd.stdout != lsd_version
+
+- name: Remove downloaded lsd deb
+  become: true
+  file:
+    path: "/opt/lsd_{{ lsd_version }}.deb"
+    state: absent
+  when: lsd.stdout != lsd_version

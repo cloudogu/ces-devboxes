@@ -17,7 +17,7 @@
   when: k9s.stdout != k9s_version
 
 - name: install k9s
-  become: yes
+  become: true
   copy:
     src: /tmp/k9s.temp/k9s
     dest: /usr/local/bin/k9s

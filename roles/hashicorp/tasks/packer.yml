@@ -1,0 +1,7 @@
+- name: Install packer package
+  become: true
+  apt:
+    name: packer
+    state: latest
+    update_cache: true
+    cache_valid_time: "{{ aptcachetime }}"

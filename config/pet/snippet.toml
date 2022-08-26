@@ -1,0 +1,89 @@
+[[snippets]]
+description = "List all etcdctl keys and their values"
+command = "etcdctl ls --recursive -p | grep -v '/$' | xargs -n 1 -I% sh -c 'echo -n %:; etcdctl get %;'"
+output = ""
+
+[[snippets]]
+description = "List all etcdctl keys and values for a dogu. You only need to replace the dogu at the end."
+command = "etcdctl ls --recursive -p | grep -v '/$' | xargs -n 1 -I% sh -c 'echo -n %:; etcdctl get %;' | grep dogu"
+output = ""
+
+[[snippets]]
+description = "Show all registered services in nginx"
+command = "docker exec -it nginx bash -c \"cat conf.d/app.conf\""
+output = ""
+
+[[snippets]]
+description = "Block RAM-Memory. Just replace BYTES by the size of the actual amount to block, e.g., 2G "
+command = "</dev/zero head -c BYTES | tail"
+output = ""
+
+[[snippets]]
+description = "List all etcd-ces-services and their values"
+command = "etcdctl ls --recursive -p | grep -v '/$' | xargs -n 1 -I% sh -c 'echo -n %:; etcdctl get %;' | grep registrator:"
+output = ""
+
+[[snippets]]
+description = "Configuration for local backup test type: localDirectory"
+command = "export BACKUP_LOCAL_PATH=\"/tmp/backupTestLocal/\"\nmkdir -p \"${BACKUP_LOCAL_PATH}\" \netcdctl set /config/backup/backup_type local\netcdctl set /config/backup/encryption_key 1234\netcdctl set /config/backup/local_config/path \"${BACKUP_LOCAL_PATH}\"\necho \"Start backup via: cesapp backup --all\"\n"
+output = ""
+
+[[snippets]]
+description = "Configuration for local backup test type: S3"
+command = "echo \"On Host\"\n\necho \"Host: mkdir -p /tmp/backupTest/\"\necho \"Host: docker run -p 9000:9000 -v /tmp/backup/:/data1 -e \"MINIO_ACCESS_KEY=${AWS_ACCESS_KEY_ID}\" -e \"MINIO_SECRET_KEY=${AWS_SECRET_ACCESS_KEY}\" minio/minio server /data1\"\necho \"AWS_ACCESS_KEY_ID=MZ6O232FVUBMJ058WA4A\"\necho \"AWS_SECRET_ACCESS_KEY=Hm3vLB5DouSQgY4stiE5eOH0t1eQgFo99a4KLdYH\"\necho \"RESTIC_REPOSITORY=\"s3:http://192.168.56.1:9000/backuprepo\"\"\n\necho \"On Vagrant\"\nexport AWS_ACCESS_KEY_ID=MZ6O232FVUBMJ058WA4A\nexport AWS_SECRET_ACCESS_KEY=Hm3vLB5DouSQgY4stiE5eOH0t1eQgFo99a4KLdYH\nexport RESTIC_REPOSITORY=\"s3:http://192.168.56.1:9000/backuprepo\"\n\netcdctl mkdir /config/backup/s3_bucket_config\netcdctl set /config/backup/backup_type S3\netcdctl set /config/backup/s3_bucket_config/address \"${RESTIC_REPOSITORY}\"\netcdctl set /config/backup/s3_bucket_config/access_key_id \"${AWS_ACCESS_KEY_ID}\"\netcdctl set /config/backup/s3_bucket_config/secret_access_key \"${AWS_SECRET_ACCESS_KEY}\"\n"
+output = ""
+
+[[snippets]]
+description = "Configuration for local backup test type: SFTP"
+command = "echo \"Start ssh container on host with: docker run --name kalif -p 3222:22 -d rastasheep/ubuntu-sshd\"\nread -n 1 -p \"Press Enter when container is up and running.\" mainmenuinput\n\nSSHCONFIGFILE=\"/etc/ssh/ssh_config\"\nSSH_CONTAINER_PORT=3222\n\nif grep -q ${SSH_CONTAINER_PORT} ${SSHCONFIGFILE} ; then\n\techo \"${SSHCONFIGFILE} contains already sftp configuration\"\nelse\n\techo \"adding sftp configuration to ${SSHCONFIGFILE}\"\n\techo \"\t\" >> ${SSHCONFIGFILE}\n\techo \"Host 192.168.56.1\" >> ${SSHCONFIGFILE}\n\techo \"\tUser root\" >> ${SSHCONFIGFILE}\n\techo \"\tPort ${SSH_CONTAINER_PORT}\" >> ${SSHCONFIGFILE}\n\techo \"\t\" >> ${SSHCONFIGFILE}\n\n\techo \"generating stuff\"\n        ssh-keygen -t rsa -b 4096\n        ssh-copy-id -i ~/.ssh/id_rsa root@192.168.56.1\n\nfi\n\netcdctl mkdir /config/backup/sftp_config\netcdctl set /config/backup/backup_type SFTP\netcdctl set /config/backup/sftp_config/address sftp:root@192.168.56.1:/root/repo\netcdctl set /config/backup/encryption_key 1234\n"
+output = ""
+
+[[snippets]]
+description = "Getting the biggest files of the current path"
+command = "du -chks * | sort -rn"
+output = ""
+
+[[snippets]]
+description = "Doc-Page Setup"
+command = "export GITHUB_API_TOKEN=<your-github-token> && export SCMM_API_TOKEN=<your-scm-api-token> && export SCMM_API_USERNAME=<your-scm-username>"
+output = ""
+
+[[snippets]]
+description = "Synchronize system time [Vagrant]"
+command = "systemctl restart systemd-timesyncd"
+output = ""
+
+[[snippets]]
+description = "[ldap-mapper] Setup"
+command = "etcdctl set /config/ldap-mapper/backend/type embedded && etcdctl set /config/ldap-mapper/backend/host ldap && etcdctl set /config/ldap-mapper/backend/port 389"
+output = ""
+
+[[snippets]]
+description = "[integration-local] Setup"
+command = "{\n  \"baseUrl\": \"https://192.168.56.2\",\n  \"env\": {\n    \"DoguName\": \"cockpit\",\n    \"MaxLoginRetries\": 3,\n    \"AdminUsername\":  \"cesadmin\",\n    \"AdminPassword\":  \"cesadmin\",\n    \"AdminGroup\":  \"cesadmin\"\n  },\n  \"videoCompression\": false,\n  \"nonGlobalStepBaseDir\": false\n}\n"
+output = ""
+
+[[snippets]]
+description = "[integration-ci] Setup"
+command = "{\n  \"baseUrl\": \"https://192.168.56.2\",\n  \"env\": {\n    \"DoguName\": \"cockpit\",\n    \"MaxLoginRetries\": 3,\n    \"AdminUsername\":  \"ces-admin\",\n    \"AdminPassword\":  \"ecosystem2016\",\n    \"AdminGroup\":  \"CesAdministrators\"\n  },\n  \"videoCompression\": false,\n  \"nonGlobalStepBaseDir\": false\n}\n"
+output = ""
+
+[[snippets]]
+description = "[docker] Clean dangling images"
+command = "docker rmi -f $(docker images -f \"dangling=true\" -q)"
+output = ""
+
+[[snippets]]
+description = "[Jira/Confluence] Generate licenses"
+command = "echo 'Generate liceses at: \"https://my.atlassian.com/license\"'"
+output = ""
+
+[[snippets]]
+description = "List etcd values as json"
+command = "etcdctl -output json ls #command | jq"
+output = ""
+
+[[snippets]]
+description = "Free some ram (sudo required)"
+command = "echo 3 > /proc/sys/vm/drop_caches"
+output = ""

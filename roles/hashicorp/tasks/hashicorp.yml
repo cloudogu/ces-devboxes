@@ -1,0 +1,22 @@
+- name: Install packer gpg key
+  become: true
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    keyring: /etc/apt/trusted.gpg.d/hashicorp-archive-keyring.gpg
+
+- name: Capture lsb release
+  shell: lsb_release -cs
+  register: lsbrelease
+  changed_when: False
+
+- name: Remove wrong configured packer apt repository
+  become: true
+  apt_repository:
+    repo: deb https://apt.releases.hashicorp.com {{ lsbrelease.stdout }} main
+    state: absent
+
+- name: Install packer apt repository
+  become: true
+  apt_repository:
+    repo: deb [signed-by=/etc/apt/trusted.gpg.d/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ lsbrelease.stdout }} main
+    state: present

@@ -1,5 +1,3 @@
-helm_version: 3.5.2
-draft_version: 0.16.0
 kustomize_version: 4.0.5
 k9s_version: 0.24.5
-velero_version: 1.5.3
+gcloud_tools_version: 394.0.0

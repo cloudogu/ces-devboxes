@@ -1,0 +1,8 @@
+- name: Uninstall vmware
+  include_tasks: uninstall.yml
+
+- name: Install vmware
+  include_tasks: install.yml
+
+- name: Build and sign vmware modules
+  include_tasks: modules.yml

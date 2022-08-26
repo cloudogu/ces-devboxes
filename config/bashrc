@@ -1,0 +1,50 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="/snap/bin:${PATH}"
+
+# User configuration
+#Setup history
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Freeze
+freeze_history () {
+    fc -A
+    fc -p $HISTFILE
+    unset HISTFILE
+}
+
+unfreeze_history () {
+    fc -P
+}
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+export EDITOR='nano'
+
+# Add config for go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
+export GOPRIVATE="github.com/cloudogu/cesapp github.com/cloudogu/cesapp/v2 github.com/cloudogu/cesapp/v3 github.com/cloudogu/cesapp/v4 github.com/cloudogu/cesapp/v5"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs.
+[ -f ~/.aliases_local ] && source ~/.aliases_local
+[ -f ~/.aliases_devbox ] && source ~/.aliases_devbox
+[ -f ~/.aliases_kubectl ] && source ~/.aliases_kubectl
+[ -f ~/.aliases_docker ] && source ~/.aliases_docker
+
+# enable gpg ssh agent
+[ -f ~/.gnupg/gpgrc ] && source ~/.gnupg/gpgrc
+
+# configure go dev environment
+[ -f ~/.gorc ] && source ~/.gorc
+
+# Configuration for jabba, gvm, nvm
+[ -s "$HOME/.jabba/jabba.sh" ] && source "$HOME/.jabba/jabba.sh"
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

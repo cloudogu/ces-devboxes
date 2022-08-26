@@ -1,0 +1,8 @@
+- name: Import mok key for enrollment
+  become: true
+  expect:
+    command: mokutil --import /mok/CES_MOCK.der
+    responses:
+      (?i)password: "{{ mokutils.password}}"
+      (?i)password again: "{{ mokutils.password}}"
+  when: mokutil_test.stdout != "/mok/CES_MOCK.der is already enrolled"

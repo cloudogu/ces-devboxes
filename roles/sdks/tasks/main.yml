@@ -1,0 +1,8 @@
+- name: Install JAVA SDK manager
+  include_tasks: java.yml
+
+- name: Install Golang SDK manager
+  include_tasks: golang.yml
+
+- name: Install Node SDK manager
+  include_tasks: node.yml
