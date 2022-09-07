@@ -1,3 +1,11 @@
 - name: Sign vboxdrv module
   become: true
   shell: /usr/src/linux-headers-`uname -r`/scripts/sign-file sha256 /mok/CES_MOCK.priv /mok/CES_MOCK.der $(modinfo -n vboxdrv)
+  
+- name: Sign vboxnetflt module
+  become: true
+  shell: /usr/src/linux-headers-`uname -r`/scripts/sign-file sha256 /mok/CES_MOCK.priv /mok/CES_MOCK.der $(modinfo -n vboxnetflt)
+  
+- name: Sign vboxnetadp module
+  become: true
+  shell: /usr/src/linux-headers-`uname -r`/scripts/sign-file sha256 /mok/CES_MOCK.priv /mok/CES_MOCK.der $(modinfo -n vboxnetadp)
