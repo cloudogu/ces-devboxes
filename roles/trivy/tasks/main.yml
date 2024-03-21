@@ -1,2 +1,2 @@
 - name: Install trivy
-  include: ubuntu.yml
+  include_tasks: ubuntu.yml

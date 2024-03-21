@@ -1,5 +1,5 @@
 - name: Install gcloud
-  include: gcloud_ubuntu.yml
+  include_tasks: gcloud_ubuntu.yml
 
 - name: Install kubectl
   shell: source ~/.local/google-cloud-sdk/path.bash.inc && gcloud components install kubectl --quiet
@@ -12,7 +12,7 @@
     executable:  /usr/bin/bash
 
 - name: Install kubectx
-  include: kubectx.yml
+  include_tasks: kubectx.yml
 
 - name: Install k9s
-  include: k9s.yml
+  include_tasks: k9s.yml

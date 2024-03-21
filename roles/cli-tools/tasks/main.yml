@@ -14,25 +14,25 @@
       - btrfs-progs
 
 - name: Install bat
-  include: bat.yml
+  include_tasks: bat.yml
 
 - name: Install gotop
-  include: gotop.yml
+  include_tasks: gotop.yml
 
 - name: Install ctop
-  include: ctop.yml
+  include_tasks: ctop.yml
 
 - name: Install gopass
-  include: gopass.yml
+  include_tasks: gopass.yml
 
 - name: Install yq
-  include: yq.yml
+  include_tasks: yq.yml
 
 - name: Install lsd
-  include: lsd.yml
+  include_tasks: lsd.yml
 
 - name: Install pet snippet manager
-  include: pet.yml
+  include_tasks: pet.yml
 
 - name: Install aliases
-  include: aliases.yml
+  include_tasks: aliases.yml
