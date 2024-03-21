@@ -1,8 +1,14 @@
+- name: Check if snap is installed
+  stat:
+    path: "/usr/bin/snap"
+  register: "snap_check"
+
 - name: Remove old snap installation
   become: true
   snap:
     name: code
     state: absent
+  when: snap_check.stat.exists
 
 - name: Install vscode gpg key
   become: true

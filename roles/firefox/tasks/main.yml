@@ -1,5 +1,6 @@
 ---
 
 - name: Install firefox
-  snap:
+  package:
+    state: present
     name: firefox
