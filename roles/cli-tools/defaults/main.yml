@@ -1,7 +1,7 @@
-bat_version: 0.21.0
-gotop_version: 4.1.3
+bat_version: 0.24.0
+gotop_version: 4.2.3
 ctop_version: 0.7.7
 docker_aliases_version: 0.7.0
-yq_version: 4.25.3
-pet_version: 0.4.0
-lsd_version: 0.22.0
+yq_version: 4.42.1
+pet_version: 0.7.0
+lsd_version: 1.0.0
